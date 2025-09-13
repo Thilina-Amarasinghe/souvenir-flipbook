@@ -72,12 +72,12 @@
   <!-- Flip sound -->
   <audio id="flipSound" src="flip.mp3" preload="auto"></audio>
 
-  <!-- jQuery + Turn.js -->
+  <!-- jQuery + Turn.js (CDN links) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="js/turn.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
 
   <script>
-    // Initialize flipbook with interactive mouse drag
+    // Initialize flipbook
     $('#flipbook').turn({
       width: 800,
       height: 600,
@@ -85,8 +85,8 @@
       display: 'double',
       gradients: true,
       acceleration: true,
-      elevation: 50,   // 👈 corner lift height
-      duration: 1000,  // 👈 smooth animation time
+      elevation: 50,
+      duration: 1000,
       when: {
         turning: function(event, page, view) {
           document.getElementById('flipSound').play();
@@ -94,7 +94,7 @@
       }
     });
 
-    // Add mouse cursor change when dragging
+    // Change cursor when dragging
     $('#flipbook').on('start', function(e){
       $(this).css('cursor', 'grabbing');
     }).on('end', function(e){
