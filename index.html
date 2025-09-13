@@ -16,15 +16,15 @@
 
     /* Flipbook container */
     #flipbook {
-      width: 95vw;               /* take almost full width */
-      max-width: 1000px;         /* desktop ekata max size */
-      aspect-ratio: 420 / 297;   /* A4 landscape double-page ratio */
+      width: 100vw;              /* full screen width */
+      max-width: 1000px;         /* desktop limit */
+      aspect-ratio: 420 / 297;   /* A4 landscape ratio */
       height: auto;
       margin: auto;
     }
 
     #flipbook .page {
-      width: 50%;                /* always half of book */
+      width: 50%;      /* half of book width */
       height: 100%;
       background: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
@@ -39,7 +39,7 @@
       pointer-events: none;
     }
 
-    /* Controls on left/right side */
+    /* Controls – left & right of book */
     .controls {
       position: absolute;
       top: 50%;
@@ -48,18 +48,18 @@
       justify-content: space-between;
       transform: translateY(-50%);
       padding: 0 15px;
-      pointer-events: none; /* prevent blocking flip gestures */
+      z-index: 1000;        /* keep above book */
+      pointer-events: auto; /* make touch work */
     }
 
     .controls button {
-      pointer-events: auto; /* allow button click */
-      padding: 10px 18px;
+      padding: 12px 20px;
       border: none;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.7);
       color: white;
       cursor: pointer;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 16px;
     }
   </style>
 </head>
@@ -88,18 +88,18 @@
 
   <script>
     function initFlipbook() {
-      // keep width responsive
       var w = Math.min(window.innerWidth * 0.95, 1000);
-      var h = w * (297 / 420); // maintain A4 ratio
+      var h = w * (297/420); // A4 landscape ratio
 
       $('#flipbook').turn({
         width: w,
         height: h,
         autoCenter: true,
-        display: 'double',   // 🔒 always double-page
+        display: 'double',  // always double page
         gradients: true,
         elevation: 50,
         duration: 1000,
+        turnCorners: "",    // 🔒 disable mouse corner flip
         when: {
           turning: function() {
             document.getElementById('flipSound').play();
@@ -108,10 +108,12 @@
       });
     }
 
+    // first load
     $(document).ready(function() {
       initFlipbook();
     });
 
+    // resize ekedi re-init karanna
     $(window).on('resize', function() {
       $('#flipbook').turn('destroy').removeClass('turnjs');
       initFlipbook();
