@@ -14,14 +14,14 @@
       overflow: hidden;
     }
     #flipbook {
-      width: 90vw;       /* viewport responsive */
-      height: 70vh;
-      max-width: 800px;  /* desktop max */
-      max-height: 600px;
+      width: 90vw;                 /* responsive */
+      max-width: 1000px;           /* desktop max */
+      aspect-ratio: 420 / 297;     /* Double A4 ratio */
+      height: auto;
       touch-action: none;
     }
     #flipbook .page {
-      width: 50%;        /* always half of flipbook */
+      width: 50%;                  /* half of the book */
       height: 100%;
       background: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
@@ -74,14 +74,16 @@
   <!-- Flip sound -->
   <audio id="flipSound" src="flip.mp3" preload="auto"></audio>
 
-  <!-- jQuery + Turn.js (CDN links) -->
+  <!-- jQuery + Turn.js -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://www.turnjs.com/lib/turn.min.js"></script>
 
   <script>
     function initFlipbook() {
-      var w = Math.min(window.innerWidth * 0.9, 800);
-      var h = Math.min(window.innerHeight * 0.7, 600);
+      // Base width: 90% screen, max 1000px
+      var w = Math.min(window.innerWidth * 0.9, 1000);
+      // Height from double-A4 ratio (420:297)
+      var h = w * (297/420);
 
       $('#flipbook').turn({
         width: w,
@@ -112,7 +114,7 @@
       initFlipbook();
     });
 
-    // Change cursor when dragging
+    // Cursor effect
     $('#flipbook').on('start', function(e){
       $(this).css('cursor', 'grabbing');
     }).on('end', function(e){
