@@ -16,7 +16,7 @@
     #flipbook {
       width: 800px;
       height: 600px;
-      touch-action: none; /* 👈 mobile swipe support */
+      touch-action: none;
     }
     #flipbook .page {
       width: 400px;
@@ -24,7 +24,7 @@
       background: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       cursor: grab;
-      touch-action: none; /* allow finger drag */
+      user-select: none;
     }
     #flipbook .page img {
       width: 100%;
@@ -77,19 +77,28 @@
   <script src="js/turn.min.js"></script>
 
   <script>
-    // Initialize flipbook
+    // Initialize flipbook with interactive mouse drag
     $('#flipbook').turn({
       width: 800,
       height: 600,
       autoCenter: true,
-      display: 'double',   // show facing pages
+      display: 'double',
       gradients: true,
-      acceleration: true
+      acceleration: true,
+      elevation: 50,   // 👈 corner lift height
+      duration: 1000,  // 👈 smooth animation time
+      when: {
+        turning: function(event, page, view) {
+          document.getElementById('flipSound').play();
+        }
+      }
     });
 
-    // Play sound on page flip
-    $('#flipbook').bind('turning', function(event, page, view) {
-      document.getElementById('flipSound').play();
+    // Add mouse cursor change when dragging
+    $('#flipbook').on('start', function(e){
+      $(this).css('cursor', 'grabbing');
+    }).on('end', function(e){
+      $(this).css('cursor', 'grab');
     });
   </script>
 </body>
