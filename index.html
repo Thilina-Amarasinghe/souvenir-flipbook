@@ -14,13 +14,15 @@
       overflow: hidden;
     }
     #flipbook {
-      width: 800px;
-      height: 600px;
+      width: 90vw;       /* viewport responsive */
+      height: 70vh;
+      max-width: 800px;  /* desktop max */
+      max-height: 600px;
       touch-action: none;
     }
     #flipbook .page {
-      width: 400px;
-      height: 600px;
+      width: 50%;        /* always half of flipbook */
+      height: 100%;
       background: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       cursor: grab;
@@ -76,23 +78,38 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://www.turnjs.com/lib/turn.min.js"></script>
 
-
   <script>
-    // Initialize flipbook
-    $('#flipbook').turn({
-      width: 800,
-      height: 600,
-      autoCenter: true,
-      display: 'double',
-      gradients: true,
-      acceleration: true,
-      elevation: 50,
-      duration: 1000,
-      when: {
-        turning: function(event, page, view) {
-          document.getElementById('flipSound').play();
+    function initFlipbook() {
+      var w = Math.min(window.innerWidth * 0.9, 800);
+      var h = Math.min(window.innerHeight * 0.7, 600);
+
+      $('#flipbook').turn({
+        width: w,
+        height: h,
+        autoCenter: true,
+        display: 'double',
+        gradients: true,
+        elevation: 50,
+        duration: 1000,
+        when: {
+          turning: function(event, page, view) {
+            document.getElementById('flipSound').play();
+          }
         }
+      });
+    }
+
+    // First load
+    $(document).ready(function(){
+      initFlipbook();
+    });
+
+    // Resize ekedi re-init
+    $(window).on('resize', function(){
+      if ($("#flipbook").data("turn")) {
+        $('#flipbook').turn('destroy');
       }
+      initFlipbook();
     });
 
     // Change cursor when dragging
@@ -104,4 +121,3 @@
   </script>
 </body>
 </html>
-
