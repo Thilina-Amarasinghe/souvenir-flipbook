@@ -7,68 +7,27 @@
     <style>
         body {
             margin: 0;
-            background: linear-gradient(135deg, #8b4513, #d2b48c);
+            background: #eee;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            font-family: 'Georgia', serif;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .book-container {
-            perspective: 1200px;
-            position: relative;
+            height: 100vh;
+            overflow: hidden;
         }
 
         #flipbook {
-            width: min(90vw, 800px);
-            height: min(70vh, 600px);
-            min-width: 320px;
-            min-height: 400px;
+            width: 800px;
+            height: 600px;
             touch-action: none;
-            position: relative;
-            background: #8b4513;
-            border-radius: 8px;
-            box-shadow: 
-                0 0 0 8px #654321,
-                0 10px 40px rgba(0,0,0,0.8),
-                inset 0 0 0 2px #a0522d;
         }
 
         #flipbook .page {
-            width: 50%;
-            height: 100%;
-            background: #fefefe;
-            box-shadow: 
-                0 0 20px rgba(0,0,0,0.3),
-                inset 0 0 0 1px #e0e0e0;
+            width: 400px;
+            height: 600px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
             cursor: grab;
             user-select: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #333;
-            border-radius: 4px;
-            position: relative;
-        }
-
-        #flipbook .page::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, 
-                rgba(0,0,0,0.05) 0%, 
-                rgba(0,0,0,0) 5%, 
-                rgba(0,0,0,0) 95%, 
-                rgba(0,0,0,0.05) 100%);
-            pointer-events: none;
-            border-radius: 4px;
         }
 
         #flipbook .page img {
@@ -77,29 +36,11 @@
             object-fit: cover;
             user-select: none;
             pointer-events: none;
-            border-radius: 4px;
-        }
-
-        /* Book spine effect */
-        #flipbook::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 5%;
-            bottom: 5%;
-            width: 3px;
-            background: linear-gradient(180deg, #654321 0%, #8b4513 50%, #654321 100%);
-            transform: translateX(-50%);
-            z-index: 1000;
-            border-radius: 1px;
-            box-shadow: 
-                0 0 5px rgba(0,0,0,0.5),
-                inset 0 0 2px rgba(255,255,255,0.2);
         }
 
         .controls {
             position: absolute;
-            bottom: -60px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -108,327 +49,185 @@
         }
 
         button {
-            padding: 12px 25px;
+            padding: 10px 20px;
             border: none;
-            background: linear-gradient(145deg, #8b4513, #654321);
-            color: #fefefe;
+            background: #444;
+            color: white;
             cursor: pointer;
-            border-radius: 25px;
+            border-radius: 6px;
             font-size: 16px;
-            font-family: 'Georgia', serif;
-            font-weight: bold;
-            touch-action: manipulation;
-            transition: all 0.3s ease;
-            box-shadow: 
-                0 4px 15px rgba(0,0,0,0.3),
-                inset 0 1px 0 rgba(255,255,255,0.2);
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-
-        button:hover {
-            background: linear-gradient(145deg, #a0522d, #8b4513);
-            transform: translateY(-2px);
-            box-shadow: 
-                0 6px 20px rgba(0,0,0,0.4),
-                inset 0 1px 0 rgba(255,255,255,0.3);
-        }
-
-        button:active {
-            transform: translateY(0);
-            box-shadow: 
-                0 2px 10px rgba(0,0,0,0.3),
-                inset 0 1px 0 rgba(255,255,255,0.1);
-        }
-
-        /* Page content styling */
-        .page-content {
-            text-align: center;
-            padding: 40px 30px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: radial-gradient(circle at center, #fefefe 0%, #f8f8f8 100%);
-            border-radius: 4px;
-        }
-
-        .page-content h2 {
-            color: #8b4513;
-            margin-bottom: 20px;
-            font-size: 2em;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            font-family: 'Georgia', serif;
-        }
-
-        .page-content p {
-            color: #555;
-            line-height: 1.6;
-            font-size: 1.1em;
-            margin-bottom: 15px;
         }
 
         /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            #flipbook {
+                width: 90vw;
+                height: 67.5vw; /* Maintain 800:600 ratio */
+                max-width: 800px;
+                max-height: 600px;
+            }
+
+            #flipbook .page {
+                width: 45vw;
+                height: 67.5vw;
+                max-width: 400px;
+                max-height: 600px;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
+                height: 100vh;
                 padding: 10px;
             }
 
             #flipbook {
                 width: 95vw;
-                height: 60vh;
-                min-height: 350px;
+                height: 71.25vw;
+                min-height: 400px;
             }
 
-            .page-content {
-                padding: 20px 15px;
-            }
-
-            .page-content h2 {
-                font-size: 1.5em;
-                margin-bottom: 15px;
-            }
-
-            .page-content p {
-                font-size: 0.9em;
-            }
-
-            button {
-                padding: 10px 20px;
-                font-size: 14px;
+            #flipbook .page {
+                width: 47.5vw;
+                height: 71.25vw;
+                min-height: 400px;
             }
 
             .controls {
-                bottom: -50px;
+                bottom: 10px;
                 gap: 15px;
+            }
+
+            button {
+                padding: 12px 24px;
+                font-size: 14px;
+                min-height: 44px;
             }
         }
 
         @media (max-width: 480px) {
             #flipbook {
                 width: 98vw;
-                height: 55vh;
-                min-height: 320px;
+                height: 73.5vw;
+                min-height: 350px;
             }
 
-            .page-content h2 {
-                font-size: 1.3em;
-            }
-
-            .page-content p {
-                font-size: 0.85em;
+            #flipbook .page {
+                width: 49vw;
+                height: 73.5vw;
+                min-height: 350px;
             }
 
             button {
-                padding: 8px 16px;
+                padding: 10px 20px;
                 font-size: 12px;
             }
-        }
 
-        /* Turn.js page styling */
-        .turn-page {
-            background: #fefefe !important;
-        }
-
-        /* Prevent text selection during flip */
-        .turning {
-            user-select: none !important;
-        }
-
-        /* Page number styling */
-        .page-number {
-            position: absolute;
-            bottom: 20px;
-            font-size: 0.9em;
-            color: #888;
-            font-style: italic;
-        }
-
-        .page:nth-child(odd) .page-number {
-            left: 20px;
-        }
-
-        .page:nth-child(even) .page-number {
-            right: 20px;
+            .controls {
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="book-container">
-        <!-- Flipbook container -->
-        <div id="flipbook">
-            <div class="page">
-                <div class="page-content">
-                    <h2>🌟 Welcome to My Journey</h2>
-                    <p>This is my personal souvenir flipbook filled with memories, adventures, and beautiful moments captured along the way.</p>
-                    <p>Click and drag the corner to flip pages, or use the buttons below to navigate through my story.</p>
-                    <div class="page-number">1</div>
-                </div>
-            </div>
-            <div class="page">
-                <div class="page-content">
-                    <h2>📸 Chapter One</h2>
-                    <p>Every journey begins with a single step. Here are some of the amazing places I've visited and the people I've met along the way.</p>
-                    <p>Each page holds a special memory that I want to share with you.</p>
-                    <div class="page-number">2</div>
-                </div>
-            </div>
-            <div class="page">
-                <div class="page-content">
-                    <h2>🌍 Adventures Await</h2>
-                    <p>From mountain peaks to ocean shores, from bustling cities to quiet villages, my travels have taken me to incredible places.</p>
-                    <p>Replace this content with your own images and stories!</p>
-                    <div class="page-number">3</div>
-                </div>
-            </div>
-            <div class="page">
-                <div class="page-content">
-                    <h2>✨ Thank You</h2>
-                    <p>Thank you for taking this journey with me through my flipbook. I hope these memories bring you as much joy as they bring me.</p>
-                    <p>Until our next adventure!</p>
-                    <div class="page-number">4</div>
-                </div>
-            </div>
-        </div>
+    <!-- Flipbook container -->
+    <div id="flipbook">
+        <div class="page"><img src="images/page1.jpg" alt="Page 1"></div>
+        <div class="page"><img src="images/page2.jpg" alt="Page 2"></div>
+        <div class="page"><img src="images/page3.jpg" alt="Page 3"></div>
+        <div class="page"><img src="images/page4.jpg" alt="Page 4"></div>
+    </div>
 
-        <!-- Controls -->
-        <div class="controls">
-            <button id="prevBtn">◀ Previous</button>
-            <button id="nextBtn">Next ▶</button>
-        </div>
+    <!-- Controls -->
+    <div class="controls">
+        <button onclick="$('#flipbook').turn('previous')">◀ Prev</button>
+        <button onclick="$('#flipbook').turn('next')">Next ▶</button>
     </div>
 
     <!-- Flip sound -->
-    <audio id="flipSound" preload="auto">
-        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmNABj2S2PB7FgUihtP12qqCxjRTJNmxK0VxP16zQKVyD1wfbNjc1EtvMmm1WahjQJNhgDhm6ZdXaLhYVlsj85YrMEJqKk8yMhMnfLEaOV7tK1mLHDgx" type="audio/wav">
-    </audio>
+    <audio id="flipSound" src="flip.mp3" preload="auto"></audio>
 
     <!-- jQuery + Turn.js (CDN links) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Get flipbook dimensions
-            function getFlipbookDimensions() {
-                const container = $('#flipbook');
-                const width = container.width();
-                const height = container.height();
-                return { width, height };
+        // Initialize flipbook
+        $('#flipbook').turn({
+            width: $('#flipbook').width(),
+            height: $('#flipbook').height(),
+            autoCenter: true,
+            display: 'double',
+            gradients: true,
+            acceleration: true,
+            elevation: 50,
+            duration: 1000,
+            when: {
+                turning: function(event, page, view) {
+                    document.getElementById('flipSound').play().catch(e => {});
+                }
             }
+        });
 
-            // Initialize flipbook
-            function initFlipbook() {
-                const dimensions = getFlipbookDimensions();
-                
-                // Destroy existing flipbook if it exists
+        // Change cursor when dragging
+        $('#flipbook').on('start', function(e){
+            $(this).css('cursor', 'grabbing');
+        }).on('end', function(e){
+            $(this).css('cursor', 'grab');
+        });
+
+        // Handle window resize for mobile
+        $(window).resize(function() {
+            setTimeout(function() {
                 if ($('#flipbook').turn('is')) {
                     $('#flipbook').turn('destroy');
                 }
-                
                 $('#flipbook').turn({
-                    width: dimensions.width,
-                    height: dimensions.height,
+                    width: $('#flipbook').width(),
+                    height: $('#flipbook').height(),
                     autoCenter: true,
                     display: 'double',
                     gradients: true,
                     acceleration: true,
                     elevation: 50,
                     duration: 1000,
-                    page: 1,
                     when: {
                         turning: function(event, page, view) {
-                            // Add turning class to prevent text selection
-                            $(this).addClass('turning');
-                            
-                            // Play flip sound
-                            const audio = document.getElementById('flipSound');
-                            if (audio) {
-                                audio.currentTime = 0;
-                                audio.play().catch(e => console.log('Audio play failed:', e));
-                            }
-                        },
-                        turned: function(event, page, view) {
-                            // Remove turning class
-                            $(this).removeClass('turning');
+                            document.getElementById('flipSound').play().catch(e => {});
                         }
                     }
                 });
-            }
-
-            // Initialize flipbook on page load
-            initFlipbook();
-
-            // Button event handlers
-            $('#prevBtn').click(function() {
-                $('#flipbook').turn('previous');
-            });
-
-            $('#nextBtn').click(function() {
-                $('#flipbook').turn('next');
-            });
-
-            // Handle window resize
-            let resizeTimer;
-            $(window).resize(function() {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(function() {
-                    initFlipbook();
-                }, 250);
-            });
-
-            // Touch events for mobile
-            let startX, startY;
-            const flipbook = document.getElementById('flipbook');
-            
-            flipbook.addEventListener('touchstart', function(e) {
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-            }, { passive: true });
-            
-            flipbook.addEventListener('touchmove', function(e) {
-                // Prevent default scroll behavior
-                e.preventDefault();
-            }, { passive: false });
-            
-            flipbook.addEventListener('touchend', function(e) {
-                if (!startX || !startY) return;
-                
-                const endX = e.changedTouches[0].clientX;
-                const endY = e.changedTouches[0].clientY;
-                
-                const diffX = startX - endX;
-                const diffY = startY - endY;
-                
-                // Check if horizontal swipe is more significant than vertical
-                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-                    if (diffX > 0) {
-                        // Swiped left - next page
-                        $('#flipbook').turn('next');
-                    } else {
-                        // Swiped right - previous page
-                        $('#flipbook').turn('previous');
-                    }
-                }
-                
-                startX = null;
-                startY = null;
-            }, { passive: true });
-
-            // Change cursor when dragging (for desktop)
-            $('#flipbook').on('start', function(e){
-                $(this).css('cursor', 'grabbing');
-            }).on('end', function(e){
-                $(this).css('cursor', 'grab');
-            });
-
-            // Keyboard navigation
-            $(document).keydown(function(e) {
-                if (e.which === 37) { // Left arrow
-                    $('#flipbook').turn('previous');
-                } else if (e.which === 39) { // Right arrow
-                    $('#flipbook').turn('next');
-                }
-            });
+            }, 100);
         });
+
+        // Touch support for mobile
+        let startX, startY;
+        const flipbook = document.getElementById('flipbook');
+        
+        flipbook.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }, { passive: true });
+        
+        flipbook.addEventListener('touchend', function(e) {
+            if (!startX || !startY) return;
+            
+            const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            
+            const diffX = startX - endX;
+            const diffY = startY - endY;
+            
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    $('#flipbook').turn('next');
+                } else {
+                    $('#flipbook').turn('previous');
+                }
+            }
+            
+            startX = null;
+            startY = null;
+        }, { passive: true });
     </script>
 </body>
 </html>
