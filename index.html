@@ -1,263 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Souvenir Flipbook</title>
-    <style>
-        body {
-            margin: 0;
-            background: #eee;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Souvenir Flipbook</title>
+  <style>
+    body {
+      margin: 0;
+      background: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-        #flipbook {
-            width: 800px;
-            height: 600px;
-            touch-action: none;
-        }
+    #flipbook {
+      width: 800px;
+      height: 1130px; /* A4 ratio ~1:1.41 */
+      touch-action: none;
+    }
 
-        #flipbook .page {
-            width: 400px;
-            height: 600px;
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
-            cursor: grab;
-            user-select: none;
-        }
+    #flipbook .page {
+      width: 400px;
+      height: 1130px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      cursor: grab;
+      user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
 
-        #flipbook .page img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            user-select: none;
-            pointer-events: none;
-        }
+    #flipbook .page img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
 
-        .controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 1000;
-        }
+    /* Corner curl hint */
+    .corner-hover::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, rgba(0,0,0,0.15), transparent 70%);
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      pointer-events: none;
+    }
 
-        button {
-            padding: 10px 20px;
-            border: none;
-            background: #444;
-            color: white;
-            cursor: pointer;
-            border-radius: 6px;
-            font-size: 16px;
-        }
+    .controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 1000;
+    }
 
-        /* Mobile Responsive */
-        @media (max-width: 1024px) {
-            #flipbook {
-                width: 90vw;
-                height: 67.5vw; /* Maintain 800:600 ratio */
-                max-width: 800px;
-                max-height: 600px;
-            }
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #444;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 16px;
+    }
 
-            #flipbook .page {
-                width: 45vw;
-                height: 67.5vw;
-                max-width: 400px;
-                max-height: 600px;
-            }
-        }
+    /* Mobile Responsive */
+    @media (max-width: 1024px) {
+      #flipbook {
+        width: 90vw;
+        height: calc(90vw * 1.41);
+        max-width: 800px;
+        max-height: 1130px;
+      }
 
-        @media (max-width: 768px) {
-            body {
-                height: 100vh;
-                padding: 10px;
-            }
+      #flipbook .page {
+        width: 45vw;
+        height: calc(90vw * 1.41);
+        max-width: 400px;
+        max-height: 1130px;
+      }
+    }
 
-            #flipbook {
-                width: 95vw;
-                height: 71.25vw;
-                min-height: 400px;
-            }
+    @media (max-width: 768px) {
+      body {
+        height: 100vh;
+        padding: 10px;
+      }
 
-            #flipbook .page {
-                width: 47.5vw;
-                height: 71.25vw;
-                min-height: 400px;
-            }
+      #flipbook {
+        width: 95vw;
+        height: calc(95vw * 1.41);
+        min-height: 400px;
+      }
 
-            .controls {
-                bottom: 10px;
-                gap: 15px;
-            }
+      #flipbook .page {
+        width: 47.5vw;
+        height: calc(95vw * 1.41);
+        min-height: 400px;
+      }
 
-            button {
-                padding: 12px 24px;
-                font-size: 14px;
-                min-height: 44px;
-            }
-        }
+      .controls {
+        bottom: 10px;
+        gap: 15px;
+      }
 
-        @media (max-width: 480px) {
-            #flipbook {
-                width: 98vw;
-                height: 73.5vw;
-                min-height: 350px;
-            }
+      button {
+        padding: 12px 24px;
+        font-size: 14px;
+        min-height: 44px;
+      }
+    }
 
-            #flipbook .page {
-                width: 49vw;
-                height: 73.5vw;
-                min-height: 350px;
-            }
+    @media (max-width: 480px) {
+      #flipbook {
+        width: 98vw;
+        height: calc(98vw * 1.41);
+        min-height: 350px;
+      }
 
-            button {
-                padding: 10px 20px;
-                font-size: 12px;
-            }
+      #flipbook .page {
+        width: 49vw;
+        height: calc(98vw * 1.41);
+        min-height: 350px;
+      }
 
-            .controls {
-                gap: 10px;
-            }
-        }
-    </style>
+      button {
+        padding: 10px 20px;
+        font-size: 12px;
+      }
+
+      .controls {
+        gap: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Flipbook container -->
-    <div id="flipbook">
-        <div class="page"><img src="images/page1.jpg" alt="Page 1"></div>
-        <div class="page"><img src="images/page2.jpg" alt="Page 2"></div>
-        <div class="page"><img src="images/page3.jpg" alt="Page 3"></div>
-        <div class="page"><img src="images/page4.jpg" alt="Page 4"></div>
-    </div>
+  <!-- Flipbook container -->
+  <div id="flipbook">
+    <div class="page"><img src="images/page1.jpg" alt="Page 1"></div>
+    <div class="page"><img src="images/page2.jpg" alt="Page 2"></div>
+    <div class="page"><img src="images/page3.jpg" alt="Page 3"></div>
+    <div class="page"><img src="images/page4.jpg" alt="Page 4"></div>
+  </div>
 
-    <!-- Controls -->
-    <div class="controls">
-        <button onclick="$('#flipbook').turn('previous')">◀ Prev</button>
-        <button onclick="$('#flipbook').turn('next')">Next ▶</button>
-    </div>
+  <!-- Controls -->
+  <div class="controls">
+    <button onclick="$('#flipbook').turn('previous')">◀ Prev</button>
+    <button onclick="$('#flipbook').turn('next')">Next ▶</button>
+  </div>
 
-    <!-- Flip sound -->
-    <audio id="flipSound" src="flip.mp3" preload="auto"></audio>
+  <!-- Flip sound -->
+  <audio id="flipSound" src="flip.mp3" preload="auto"></audio>
 
-    <!-- jQuery + Turn.js (CDN links) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
-    <script>
-        // Initialize flipbook
-        $('#flipbook').turn({
-            width: $('#flipbook').width(),
-            height: $('#flipbook').height(),
-            autoCenter: true,
-            display: 'double',
-            gradients: true,
-            acceleration: true,
-            elevation: 50,
-            duration: 1000,
-            when: {
-                turning: function(event, page, view) {
-                    document.getElementById('flipSound').play().catch(e => {});
-                }
-            }
-        });
+  <!-- jQuery + Turn.js (CDN links) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+  <script>
+    function initFlipbook(){
+      $('#flipbook').turn({
+        width: $('#flipbook').width(),
+        height: $('#flipbook').height(),
+        autoCenter: true,
+        display: 'double',
+        gradients: true,
+        acceleration: true,
+        elevation: 50,
+        duration: 1000,
+        when: {
+          turning: function(event, page, view) {
+            document.getElementById('flipSound').play().catch(e => {});
+          }
+        }
+      });
+    }
 
-        // Change cursor when dragging
-        $('#flipbook').on('start', function(e){
-            $(this).css('cursor', 'grabbing');
-        }).on('end', function(e){
-            $(this).css('cursor', 'grab');
-        });
+    // Initialize flipbook
+    initFlipbook();
 
-        // Enhanced corner hover effects
-        $('.corner-hover-area').hover(
-            function() {
-                $(this).parent('.page').addClass('corner-hover');
-                $(this).css('cursor', 'pointer');
-            },
-            function() {
-                $(this).parent('.page').removeClass('corner-hover');
-            }
-        );
+    // Cursor grab
+    $('#flipbook').on('start', function(){
+      $(this).css('cursor','grabbing');
+    }).on('end', function(){
+      $(this).css('cursor','grab');
+    });
 
-        // Click on corner to flip
-        $('.corner-hover-area').click(function() {
-            $('#flipbook').turn('next');
-        });
+    // Hover curl effect
+    $('#flipbook .page').hover(
+      function(){ $(this).addClass('corner-hover'); },
+      function(){ $(this).removeClass('corner-hover'); }
+    );
 
-        // Enhanced mouse hover for corner curl effect
-        $('#flipbook .page').hover(
-            function() {
-                // Only show corner curl on right pages (even pages in double mode)
-                const pageIndex = $(this).index() + 1;
-                if (pageIndex % 2 === 0 || $('#flipbook').turn('display') === 'single') {
-                    $(this).addClass('corner-hover');
-                }
-            },
-            function() {
-                $(this).removeClass('corner-hover');
-            }
-        );
-
-        // Handle window resize for mobile
-        $(window).resize(function() {
-            setTimeout(function() {
-                if ($('#flipbook').turn('is')) {
-                    $('#flipbook').turn('destroy');
-                }
-                $('#flipbook').turn({
-                    width: $('#flipbook').width(),
-                    height: $('#flipbook').height(),
-                    autoCenter: true,
-                    display: 'double',
-                    gradients: true,
-                    acceleration: true,
-                    elevation: 50,
-                    duration: 1000,
-                    when: {
-                        turning: function(event, page, view) {
-                            document.getElementById('flipSound').play().catch(e => {});
-                        }
-                    }
-                });
-            }, 100);
-        });
-
-        // Touch support for mobile
-        let startX, startY;
-        const flipbook = document.getElementById('flipbook');
-        
-        flipbook.addEventListener('touchstart', function(e) {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        }, { passive: true });
-        
-        flipbook.addEventListener('touchend', function(e) {
-            if (!startX || !startY) return;
-            
-            const endX = e.changedTouches[0].clientX;
-            const endY = e.changedTouches[0].clientY;
-            
-            const diffX = startX - endX;
-            const diffY = startY - endY;
-            
-            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-                if (diffX > 0) {
-                    $('#flipbook').turn('next');
-                } else {
-                    $('#flipbook').turn('previous');
-                }
-            }
-            
-            startX = null;
-            startY = null;
-        }, { passive: true });
-    </script>
+    // Resize handling
+    $(window).resize(function(){
+      setTimeout(function(){
+        if($('#flipbook').turn('is')) $('#flipbook').turn('destroy');
+        initFlipbook();
+      },100);
+    });
+  </script>
 </body>
 </html>
