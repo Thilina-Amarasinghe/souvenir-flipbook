@@ -15,15 +15,16 @@
       overflow: hidden;
     }
 
+    /* Flipbook container */
     #flipbook {
-      width: 800px;
-      height: 1130px; /* A4 ratio ~1:1.41 */
+      width: 1130px;   /* 2 x A4 width */
+      height: 800px;   /* A4 height */
       touch-action: none;
     }
 
     #flipbook .page {
-      width: 400px;
-      height: 1130px;
+      width: 565px;   /* Half of container */
+      height: 800px;
       background: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       cursor: grab;
@@ -53,6 +54,7 @@
       pointer-events: none;
     }
 
+    /* Controls */
     .controls {
       position: absolute;
       bottom: 20px;
@@ -73,39 +75,28 @@
       font-size: 16px;
     }
 
-    /* Mobile Responsive */
+    /* Responsive scaling */
     @media (max-width: 1024px) {
       #flipbook {
         width: 90vw;
-        height: calc(90vw * 1.41);
-        max-width: 800px;
-        max-height: 1130px;
+        height: calc(90vw * 0.71); /* keep A4 ratio */
       }
 
       #flipbook .page {
         width: 45vw;
-        height: calc(90vw * 1.41);
-        max-width: 400px;
-        max-height: 1130px;
+        height: calc(90vw * 0.71);
       }
     }
 
     @media (max-width: 768px) {
-      body {
-        height: 100vh;
-        padding: 10px;
-      }
-
       #flipbook {
         width: 95vw;
-        height: calc(95vw * 1.41);
-        min-height: 400px;
+        height: calc(95vw * 0.71);
       }
 
       #flipbook .page {
         width: 47.5vw;
-        height: calc(95vw * 1.41);
-        min-height: 400px;
+        height: calc(95vw * 0.71);
       }
 
       .controls {
@@ -123,14 +114,12 @@
     @media (max-width: 480px) {
       #flipbook {
         width: 98vw;
-        height: calc(98vw * 1.41);
-        min-height: 350px;
+        height: calc(98vw * 0.71);
       }
 
       #flipbook .page {
         width: 49vw;
-        height: calc(98vw * 1.41);
-        min-height: 350px;
+        height: calc(98vw * 0.71);
       }
 
       button {
@@ -162,7 +151,7 @@
   <!-- Flip sound -->
   <audio id="flipSound" src="flip.mp3" preload="auto"></audio>
 
-  <!-- jQuery + Turn.js (CDN links) -->
+  <!-- jQuery + Turn.js -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
   <script>
@@ -184,7 +173,7 @@
       });
     }
 
-    // Initialize flipbook
+    // Initialize
     initFlipbook();
 
     // Cursor grab
@@ -194,13 +183,13 @@
       $(this).css('cursor','grab');
     });
 
-    // Hover curl effect
+    // Hover effect
     $('#flipbook .page').hover(
       function(){ $(this).addClass('corner-hover'); },
       function(){ $(this).removeClass('corner-hover'); }
     );
 
-    // Resize handling
+    // Handle resize
     $(window).resize(function(){
       setTimeout(function(){
         if($('#flipbook').turn('is')) $('#flipbook').turn('destroy');
