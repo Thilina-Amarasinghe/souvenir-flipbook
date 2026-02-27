@@ -358,7 +358,9 @@
       font-weight: 500;
     }
     
-    /* Mobile Responsive Styles - Enhanced */
+    /* ========== Mobile Responsive Styles - Enhanced ========== */
+    /* මෙහිදී පමණක් වෙනස්කම් සිදු කර ඇත. අනෙක් සියල්ල නොවෙනස්ව පවතී. */
+    
     @media (max-width: 768px) {
       body {
         padding: 15px 8px;
@@ -407,13 +409,14 @@
       .table-container {
         border-radius: 15px;
         margin-bottom: 30px;
-        overflow-x: auto; /* Allow horizontal scroll if needed */
+        /* කුඩා තිරවලදී වගුව හරස් අතට අනුචලනය කිරීමට */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
       
-      /* Table responsiveness */
       table {
-        font-size: 14px;
-        min-width: 500px; /* Ensures table doesn't shrink too much, triggers scroll */
+        /* අවම පළලක් නියම කිරීමෙන් වගුවේ අන්තර්ගතය නොකැඩී පෙන්වයි */
+        min-width: 600px;
       }
       
       thead th { 
@@ -467,70 +470,66 @@
         font-size: 18px;
         margin-right: 5px;
       }
+    }
+    
+    /* ඉතා කුඩා තිර සඳහා (අඟල් 480 ට අඩු) */
+    @media (max-width: 480px) {
+      .header h1 { 
+        font-size: 1.5rem;
+      }
       
-      /* Very small screens */
-      @media (max-width: 480px) {
-        .header h1 { 
-          font-size: 1.5rem;
-        }
-        
-        .organization { 
-          font-size: 1.1rem; 
-        }
-        
-        .section-title { 
-          font-size: 1.2rem;
-        }
-        
-        .table-container {
-          overflow-x: auto; /* Ensure scroll on very small screens */
-        }
-        
-        table {
-          min-width: 450px; /* Slightly smaller min-width */
-        }
-        
-        thead th { 
-          font-size: 12px; 
-          padding: 10px 6px;
-        }
-        
-        tbody td { 
-          padding: 12px 6px; 
-          font-size: 12px;
-        }
-        
-        .winning-number { 
-          font-size: 16px; 
-          padding: 8px 12px;
-        }
-        
-        .winner-row:first-child .winning-number { 
-          font-size: 18px;
-          padding: 10px 15px;
-        }
-        
-        .sanasili-number { 
-          font-size: 14px; 
-          padding: 6px 10px;
-        }
-        
-        .city, .prize, .rank-number { 
-          font-size: 11px;
-        }
-        
-        .first-prize { 
-          font-size: 13px; 
-        }
-        
-        .trophy-icon {
-          font-size: 14px;
-          margin-right: 3px;
-        }
+      .organization { 
+        font-size: 1.1rem; 
+      }
+      
+      .section-title { 
+        font-size: 1.2rem;
+      }
+      
+      table {
+        min-width: 500px; /* කුඩා තිරවලට සරිලන පරිදි අවම පළල අඩු කිරීම */
+      }
+      
+      thead th { 
+        font-size: 12px; 
+        padding: 10px 6px;
+      }
+      
+      tbody td { 
+        padding: 12px 6px; 
+        font-size: 12px;
+      }
+      
+      .winning-number { 
+        font-size: 16px; 
+        padding: 8px 12px;
+      }
+      
+      .winner-row:first-child .winning-number { 
+        font-size: 18px;
+        padding: 10px 15px;
+      }
+      
+      .sanasili-number { 
+        font-size: 14px; 
+        padding: 6px 10px;
+      }
+      
+      .city, .prize, .rank-number { 
+        font-size: 11px;
+      }
+      
+      .first-prize { 
+        font-size: 13px; 
+      }
+      
+      .trophy-icon {
+        font-size: 14px;
+        margin-right: 3px;
       }
     }
     
-    /* Extra small screens (very small phones) */
+    /* අතිශය කුඩා තිර (අඟල් 360 ට අඩු) */
     @media (max-width: 360px) {
       body {
         padding: 10px 5px;
@@ -548,15 +547,6 @@
         font-size: 1rem;
       }
       
-      .table-container {
-        border-radius: 10px;
-        overflow-x: auto; /* Keep scroll */
-      }
-      
-      table {
-        min-width: 400px; /* Adjusted for very small screens */
-      }
-      
       .logo-img {
         height: 40px;
         max-width: 60px;
@@ -565,6 +555,10 @@
       .ticket-img {
         height: 35px;
         max-width: 50px;
+      }
+      
+      table {
+        min-width: 400px; /* ඉතා කුඩා තිර සඳහා අවම පළල */
       }
       
       thead th { 
@@ -598,7 +592,7 @@
       }
     }
     
-    /* Landscape orientation on mobile */
+    /* භූ දර්ශන ආකාරය (landscape) සඳහා */
     @media (max-width: 768px) and (orientation: landscape) {
       .header-content {
         flex-direction: row;
