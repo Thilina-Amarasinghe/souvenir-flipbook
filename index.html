@@ -3,724 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raffle Draw Results</title>
+  <title>DLB Welfare - Raffle Result</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --gold-gradient: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
-      --winner-gradient: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 100%);
-      --sanasili-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      --shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #05997e 0%, #0600ab 100%);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
-      padding: 20px 10px;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 100%;
-      margin: 0 auto;
-      position: relative;
-    }
-    
-    .logo-section, .ticket-section {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .title-section {
-      flex: 2;
-      text-align: center;
-    }
-    
-    .logo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      animation: logoGlow 3s ease-in-out infinite alternate;
-    }
-    
-    .logo-img {
-      width: auto;
-      height: 250px;
-      max-width: 500px;
-      object-fit: contain;
-      background: transparent;
-      transition: all 0.3s ease;
-    }
-    
-    .logo-img:hover {
-      transform: scale(1.1);
-    }
-    
-    .ticket {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      animation: ticketFloat 2s ease-in-out infinite alternate;
-    }
-    
-    .ticket-img {
-      width: auto;
-      height: 160px;
-      max-width: 240px;
-      object-fit: contain;
-      background: transparent;
-      transition: all 0.3s ease;
-    }
-    
-    .ticket-img:hover {
-      transform: scale(1.1) rotate(3deg);
-    }
-    
-    @keyframes logoGlow {
-      from { transform: scale(1); }
-      to { transform: scale(1.05); }
-    }
-    
-    @keyframes ticketFloat {
-      from { transform: translateY(0px) rotate(-2deg); }
-      to { transform: translateY(-10px) rotate(2deg); }
-    }
-    
-    .header h1 {
-      color: white;
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 0px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    
-    .organization {
-      color: Yellow;
-      font-size: 2.5rem;
-      font-weight: 600;
-      font-family: 'Georgia', serif;
-      margin-top: 5px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-      animation: organizationGlow 2.5s ease-in-out infinite alternate;
-    }
-    
-    @keyframes organizationGlow {
-      from { text-shadow: 2px 2px 4px rgba(0,0,0,0.4), 0 0 15px rgba(255, 215, 0, 0.3); }
-      to { text-shadow: 2px 2px 4px rgba(0,0,0,0.4), 0 0 25px rgba(255, 215, 0, 0.6); }
-    }
-    
-    .header p {
-      color: white;
-      font-size: 3.5rem;
-      font-weight: 500;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    
-    @keyframes glow {
-      from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.2); }
-      to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.4); }
-    }
-    
-    .section-title {
-      color: white;
-      font-size: 2.5rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      text-align: center;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 15px;
-    }
-    
-    .trophy-section {
-      font-size: 3rem;
-    }
-    
-    .text-section {
-      text-align: center;
-    }
-    
-    .table-container {
-      background: white;
-      border-radius: 25px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      margin-bottom: 50px;
-      backdrop-filter: blur(10px);
-      position: relative;
-      overflow-x: auto;  /* Enable horizontal scroll on small screens */
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    .table-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: var(--primary-gradient);
-      z-index: 1;
-    }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 300px; /* Ensures table doesn't shrink too much */
-    }
-    
-    .winners-table thead {
-      background: var(--gold-gradient);
-    }
-    
-    .sanasili-table thead {
-      background: var(--sanasili-gradient);
-    }
-    
-    thead th {
-      text-align: left;
       padding: 20px;
-      font-size: 28px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: white;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-      white-space: nowrap;
     }
-    
-    tbody tr {
-      transition: all 0.3s ease;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    
-    tbody tr:hover {
-      background: linear-gradient(90deg, #f8fafc, #e2e8f0);
-      transform: scale(1.01);
-    }
-    
-    tbody td {
-      padding: 22px 20px;
-      font-size: 18px;
-      color: #2d3748;
-      vertical-align: middle;
-      max-width: 100%;
-      box-sizing: border-box;
-    }
-    
-    .rank-number {
-      font-weight: 700;
-      font-size: 22px;
-      color: #667eea;
-      white-space: nowrap;
-    }
-    
-    .winning-number {
-      display: inline-flex;
+
+    /* Popup Modal Styles - Simplified Version */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
       align-items: center;
-      padding: 25px 35px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 48px;
-      color: white;
-      background: var(--winner-gradient);
-      box-shadow: 0 6px 15px rgba(255, 107, 107, 0.3);
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-      animation: pulse 2s infinite;
-      position: relative;
-      overflow: hidden;
-      white-space: normal;
-      word-break: break-word;
-      max-width: 100%;
+      justify-content: center;
     }
-    
-    .winning-number::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 150%;
-      height: 150%;
-      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-      animation: shimmer 3s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    @keyframes shimmer {
-      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-    }
-    
-    .sanasili-number {
-      display: inline-flex;
-      align-items: center;
-      padding: 18px 25px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 36px;
-      color: white;
-      background: var(--sanasili-gradient);
-      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-      white-space: normal;
-      word-break: break-word;
-      max-width: 100%;
-    }
-    
-    .prize {
-      font-weight: 700;
-      font-size: 22px;
-      color: #059669;
-      white-space: nowrap;
-    }
-    
-    .first-prize {
-      font-size: 28px;
-      color: #dc2626;
-      text-shadow: 1px 1px 2px rgba(220, 38, 38, 0.3);
-    }
-    
-    .city {
-      font-weight: 800;
-      font-size: 22px;
-      color: #4a5568;
-      white-space: nowrap;
-    }
-    
-    .trophy-icon {
-      margin-right: 10px;
-      font-size: 35px;
-    }
-    
-    .winner-row:first-child {
-      background: linear-gradient(90deg, #fef7cd, #fcd34d);
-    }
-    
-    .winner-row:first-child .winning-number {
-      background: linear-gradient(135deg, #dc2626 0%, #fbbf24 100%);
-      animation: goldPulse 2s infinite;
-      font-size: 52px;
-      padding: 28px 40px;
-    }
-    
-    @keyframes goldPulse {
-      0% { transform: scale(1); box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4); }
-      50% { transform: scale(1.08); box-shadow: 0 8px 20px rgba(220, 38, 38, 0.6); }
-      100% { transform: scale(1); box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4); }
-    }
-    
-    .stats-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      margin-top: 40px;
-    }
-    
-    .stat-card {
+
+    .modal-content {
       background: white;
-      padding: 30px;
-      border-radius: 20px;
+      padding: 40px 30px;
+      border-radius: 30px;
+      max-width: 450px;
+      width: 90%;
       text-align: center;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 0.5s ease;
     }
-    
-    .stat-card:hover {
-      transform: translateY(-5px);
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    
-    .stat-number {
-      font-size: 2.5rem;
+
+    .congrats-text {
+      font-size: 36px;
       font-weight: 700;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .prize-amount {
+      font-size: 52px;
+      font-weight: 800;
+      color: #10b981;
+      margin: 15px 0;
+      text-shadow: 2px 2px 4px rgba(16, 185, 129, 0.2);
+    }
+
+    .prize-rank {
+      font-size: 32px;
+      font-weight: 600;
       color: #667eea;
-      margin-bottom: 10px;
+      margin: 10px 0;
     }
-    
-    .stat-label {
-      font-size: 1.1rem;
-      color: #64748b;
+
+    .city-info {
+      font-size: 28px;
       font-weight: 500;
+      color: #4b5563;
+      margin: 15px 0 25px;
     }
-    
-    /* Mobile Responsive Styles - Enhanced */
-    @media (max-width: 768px) {
-      body {
-        padding: 15px 8px;
-      }
-      
-      .header-content {
-        flex-direction: column;
-        gap: 15px;
-      }
-      
-      .logo-section, .ticket-section {
-        flex: none;
-      }
-      
-      .logo-img {
-        height: 60px;
-        max-width: 80px;
-      }
-      
-      .ticket-img {
-        height: 50px;
-        max-width: 70px;
-      }
-      
-      .header h1 { 
-        font-size: 1.8rem;
-        margin-bottom: 5px;
-      }
-      
-      .organization { 
-        font-size: 1.3rem; 
-        margin-top: 2px;
-      }
-      
-      .section-title { 
-        font-size: 1.4rem;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 15px;
-      }
-      
-      .trophy-section {
-        font-size: 2rem;
-      }
-      
-      .table-container {
-        border-radius: 15px;
-        margin-bottom: 30px;
-      }
-      
-      /* Table adjustments */
-      table {
-        font-size: 14px;
-      }
-      
-      thead th { 
-        font-size: 14px; 
-        padding: 12px 8px;
-        letter-spacing: 0.5px;
-      }
-      
-      tbody td { 
-        padding: 15px 8px; 
-        font-size: 13px;
-      }
-      
-      .winning-number { 
-        font-size: 20px; 
-        padding: 10px 15px;
-        border-radius: 8px;
-      }
-      
-      .winner-row:first-child .winning-number { 
-        font-size: 24px;
-        padding: 12px 18px;
-      }
-      
-      .sanasili-number { 
-        font-size: 18px; 
-        padding: 8px 12px;
-        border-radius: 8px;
-      }
-      
-      .city, .prize { 
-        font-size: 13px;
-      }
-      
-      .first-prize { 
-        font-size: 16px; 
-      }
-      
-      .rank-number { 
-        font-size: 13px;
-      }
-      
-      .trophy-icon {
-        font-size: 18px;
-        margin-right: 5px;
-      }
+
+    .city-info span {
+      font-weight: 700;
+      color: #dc2626;
     }
-    
+
+    .close-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 16px 50px;
+      font-size: 22px;
+      font-weight: 600;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+      margin-top: 10px;
+    }
+
+    .close-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .close-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Mobile responsive */
     @media (max-width: 480px) {
-      .header h1 { 
-        font-size: 1.5rem;
+      .modal-content {
+        padding: 30px 20px;
       }
-      
-      .organization { 
-        font-size: 1.1rem; 
+      .congrats-text {
+        font-size: 28px;
       }
-      
-      .section-title { 
-        font-size: 1.2rem;
+      .prize-amount {
+        font-size: 40px;
       }
-      
-      thead th { 
-        font-size: 12px; 
-        padding: 10px 6px;
+      .prize-rank {
+        font-size: 26px;
       }
-      
-      tbody td { 
-        padding: 12px 6px; 
-        font-size: 12px;
+      .city-info {
+        font-size: 22px;
       }
-      
-      .winning-number { 
-        font-size: 16px; 
-        padding: 8px 12px;
-      }
-      
-      .winner-row:first-child .winning-number { 
-        font-size: 18px;
-        padding: 10px 15px;
-      }
-      
-      .sanasili-number { 
-        font-size: 14px; 
-        padding: 6px 10px;
-      }
-      
-      .city, .prize, .rank-number { 
-        font-size: 11px;
-      }
-      
-      .first-prize { 
-        font-size: 13px; 
-      }
-      
-      .trophy-icon {
-        font-size: 14px;
-        margin-right: 3px;
+      .close-btn {
+        padding: 14px 40px;
+        font-size: 20px;
       }
     }
-    
-    @media (max-width: 360px) {
-      body {
-        padding: 10px 5px;
-      }
-      
-      .header h1 { 
-        font-size: 1.3rem;
-      }
-      
-      .organization { 
-        font-size: 1rem; 
-      }
-      
-      .section-title { 
-        font-size: 1rem;
-      }
-      
-      .table-container {
-        border-radius: 10px;
-      }
-      
-      thead th { 
-        font-size: 10px; 
-        padding: 8px 4px;
-      }
-      
-      tbody td { 
-        padding: 10px 4px; 
-        font-size: 10px;
-      }
-      
-      .winning-number { 
-        font-size: 14px; 
-        padding: 6px 10px;
-      }
-      
-      .winner-row:first-child .winning-number { 
-        font-size: 16px;
-        padding: 8px 12px;
-      }
-      
-      .sanasili-number { 
-        font-size: 12px; 
-        padding: 5px 8px;
-      }
-      
-      .city, .prize, .rank-number { 
-        font-size: 9px;
-      }
-      
-      .first-prize { 
-        font-size: 11px; 
-      }
-      
-      .trophy-icon {
-        font-size: 12px;
-        margin-right: 2px;
-      }
+
+    /* Prize-specific colors */
+    .first-prize-amount {
+      color: #dc2626;
     }
-    
-    @media (max-width: 768px) and (orientation: landscape) {
-      .header-content {
-        flex-direction: row;
-        gap: 10px;
-      }
-      
-      .logo-img {
-        height: 40px;
-        max-width: 60px;
-      }
-      
-      .ticket-img {
-        height: 35px;
-        max-width: 50px;
-      }
-      
-      .header h1 { 
-        font-size: 1.5rem;
-      }
-      
-      .organization { 
-        font-size: 1.1rem; 
-      }
+    .first-prize-rank {
+      color: #f59e0b;
+    }
+    .second-prize-amount {
+      color: #10b981;
+    }
+    .second-prize-rank {
+      color: #3b82f6;
+    }
+    .third-prize-amount {
+      color: #8b5cf6;
+    }
+    .third-prize-rank {
+      color: #ec4899;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="header-content">
-        <div class="logo-section">
-          <div class="logo">
-            <img src="images/logo.png" alt="DLB Logo" class="logo-img">
-          </div>
-        </div>
-        <div class="title-section">
-          <h1>Raffle Draw Results </h1>
-          <h1>2025.12.26</h1>
-          <h2 class="organization">DLB Welfare Society</h2>
-        </div>
-        <div class="ticket-section">
-          <div class="ticket">
-            <img src="images/ticket.png" alt="Raffle Ticket" class="ticket-img">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-title">
-      <div class="trophy-section">🏆</div>
-      <div class="text-section">
-        <div>ජයග්‍රාහකයින්</div>
-        <div>Winners</div>
-      </div>
-    </div>
-
-    <!-- Winners Table -->
-    <div class="table-container">
-      <table class="winners-table">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Winning Number</th>
-            <th>Prize</th>
-            <th>City</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="winner-row">
-            <td class="rank-number"><p>1<sup>st</sup> Prize</p></td>
-            <td><span class="winning-number"><span class="trophy-icon">👑</span>1000001</span></td>
-            <td class="prize first-prize">200,000 LKR</td>
-            <td class="city">Colombo</td>
-          </tr>
-          <tr class="winner-row">
-            <td class="rank-number"><p>2<sup>nd</sup> Prize</p></td>
-            <td><span class="winning-number"><span class="trophy-icon"></span>1000002</span></td>
-            <td class="prize">100,000 LKR</td>
-            <td class="city">Galle</td>
-          </tr>
-          <tr class="winner-row">
-            <td class="rank-number"><p>3<sup>rd</sup> Prize</p></td>
-            <td><span class="winning-number"><span class="trophy-icon"></span>1000003</span></td>
-            <td class="prize">75,000 LKR</td>
-            <td class="city">Kurunegala</td>
-          </tr>
-          <tr class="winner-row">
-            <td class="rank-number"><p>4<sup>th</sup> Prize</p></td>
-            <td><span class="winning-number"><span class="trophy-icon"></span>1000004</span></td>
-            <td class="prize">50,000 LKR</td>
-            <td class="city">Jaffna</td>
-          </tr>
-          <tr class="winner-row">
-            <td class="rank-number"><p>5<sup>th</sup> Prize</p></td>
-            <td><span class="winning-number"><span class="trophy-icon"></span>1000005</span></td>
-            <td class="prize">25,000 LKR</td>
-            <td class="city">Anuradhapura</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="section-title">
-      <div class="text-section">
-        <div>10,000 බැගින් වූ සැනසිලි ත්‍යාග</div>
-        <div>Consolation prizes of 10,000 each</div>
-      </div>
-    </div>
-
-    <!-- Sanasili Table -->
-    <div class="table-container">
-      <table class="sanasili-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Consolation prizes</th>
-            <th>City</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="rank-number">1</td><td><span class="sanasili-number">304050</span></td><td class="city">Kandy</td></tr>
-          <tr><td class="rank-number">2</td><td><span class="sanasili-number">202020</span></td><td class="city">Matara</td></tr>
-          <tr><td class="rank-number">3</td><td><span class="sanasili-number">303030</span></td><td class="city">Negombo</td></tr>
-          <tr><td class="rank-number">4</td><td><span class="sanasili-number">404040</span></td><td class="city">Trinco</td></tr>
-          <tr><td class="rank-number">5</td><td><span class="sanasili-number">505050</span></td><td class="city">Ratnapura</td></tr>
-          <tr><td class="rank-number">6</td><td><span class="sanasili-number">606060</span></td><td class="city">Gampaha</td></tr>
-          <tr><td class="rank-number">7</td><td><span class="sanasili-number">707070</span></td><td class="city">Badulla</td></tr>
-          <tr><td class="rank-number">8</td><td><span class="sanasili-number">808080</span></td><td class="city">Monaragala</td></tr>
-          <tr><td class="rank-number">9</td><td><span class="sanasili-number">909090</span></td><td class="city">Polonnaruwa</td></tr>
-          <tr><td class="rank-number">10</td><td><span class="sanasili-number">902233</span></td><td class="city">Hambantota</td></tr>
-        </tbody>
-      </table>
+  <!-- Popup Modal - Simplified -->
+  <div id="prizeModal" class="modal">
+    <div class="modal-content">
+      <div class="congrats-text">🎉 Congratulations! 🎉</div>
+      <div class="prize-amount" id="prizeAmount">200,000 LKR</div>
+      <div class="prize-rank" id="prizeRank">1st Prize</div>
+      <div class="city-info" id="cityInfo">City: <span>Colombo</span></div>
+      <button class="close-btn" onclick="closeModal()">Close</button>
     </div>
   </div>
+
+  <!-- Simple loading or background content (optional) -->
+  <div style="color: white; text-align: center;">
+    <h1>DLB Welfare Society</h1>
+    <p>Checking your ticket...</p>
+  </div>
+
+  <script>
+    // ---------- WINNERS DATABASE ----------
+    // Format: { ticketNumber: { prizeRank: "1st Prize", prizeAmount: "200,000 LKR", city: "Colombo" } }
+    const winners = {
+      // Main prizes
+      '1000001': { rank: '1st Prize', amount: '200,000 LKR', city: 'Colombo' },
+      '1000002': { rank: '2nd Prize', amount: '100,000 LKR', city: 'Galle' },
+      '1000003': { rank: '3rd Prize', amount: '75,000 LKR', city: 'Kurunegala' },
+      '1000004': { rank: '4th Prize', amount: '50,000 LKR', city: 'Jaffna' },
+      '1000005': { rank: '5th Prize', amount: '25,000 LKR', city: 'Anuradhapura' },
+      
+      // Consolation prizes (10,000 LKR each)
+      '304050': { rank: 'Consolation Prize', amount: '10,000 LKR', city: 'Kandy' },
+      '202020': { rank: 'Consolation Prize', amount: '10,000 LKR', city: 'Matara' },
+      '303030': { rank: 'Consolation Prize', amount: '10,000 LKR', city: 'Negombo' },
+      '404040': { rank: 'Consolation Prize', amount: '10,000 LKR', city: 'Trinco' },
+      '505050': { rank: 'Consolation Prize', amount: '10,000 LKR', city: 'Ratnapura' },
+      '606060': { rank: 'Consolation Prize', amount: '10,000 LKR', city: 'Gampaha' },
+      '707070': { rank: 'Consolation Prize', amount: '10,000 LKR', city: 'Badulla' },
+      '808080': { rank: 'Consolation Prize', amount: '10,000 LKR', city: 'Monaragala' },
+      '909090': { rank: 'Consolation Prize', amount: '10,000 LKR', city: 'Polonnaruwa' },
+      '902233': { rank: 'Consolation Prize', amount: '10,000 LKR', city: 'Hambantota' }
+    };
+
+    // Get ticket number from URL (?ticket=XXXXXX)
+    function getTicketFromURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('ticket'); // Returns the ticket number or null
+    }
+
+    // Show modal with prize details
+    function showPrizeModal(ticketNumber) {
+      const modal = document.getElementById('prizeModal');
+      const prizeAmountEl = document.getElementById('prizeAmount');
+      const prizeRankEl = document.getElementById('prizeRank');
+      const cityInfoEl = document.getElementById('cityInfo');
+      
+      // Check if ticket exists in winners database
+      if (winners[ticketNumber]) {
+        const prize = winners[ticketNumber];
+        
+        // Set content
+        prizeAmountEl.textContent = prize.amount;
+        prizeRankEl.textContent = prize.rank;
+        cityInfoEl.innerHTML = `City: <span>${prize.city}</span>`;
+        
+        // Apply special styling for first prize
+        if (ticketNumber === '1000001') {
+          prizeAmountEl.classList.add('first-prize-amount');
+          prizeRankEl.classList.add('first-prize-rank');
+        } else {
+          // Remove any previous special classes
+          prizeAmountEl.classList.remove('first-prize-amount', 'second-prize-amount', 'third-prize-amount');
+          prizeRankEl.classList.remove('first-prize-rank', 'second-prize-rank', 'third-prize-rank');
+        }
+        
+        // Show modal
+        modal.style.display = 'flex';
+      } else {
+        // Optional: Show a "not winner" message
+        prizeAmountEl.textContent = '0 LKR';
+        prizeRankEl.textContent = 'Not a Winner';
+        cityInfoEl.innerHTML = 'Better luck next time!';
+        modal.style.display = 'flex';
+        
+        // You could also redirect to a "sorry" page or just show nothing
+        // alert('Sorry, this ticket is not a winner.');
+      }
+    }
+
+    // Close modal function
+    function closeModal() {
+      document.getElementById('prizeModal').style.display = 'none';
+    }
+
+    // Close modal if clicked outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('prizeModal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    // Run when page loads
+    window.onload = function() {
+      const ticket = getTicketFromURL();
+      if (ticket) {
+        // Small delay for better UX (optional)
+        setTimeout(() => {
+          showPrizeModal(ticket);
+        }, 300);
+      } else {
+        // No ticket in URL - show message or redirect
+        document.body.innerHTML = `
+          <div style="color: white; text-align: center; padding: 50px;">
+            <h1>DLB Welfare Society</h1>
+            <p style="font-size: 24px;">Please provide a ticket number in the URL</p>
+            <p style="font-size: 18px;">Example: ?ticket=1000001</p>
+          </div>
+        `;
+      }
+    };
+  </script>
 </body>
 </html>
