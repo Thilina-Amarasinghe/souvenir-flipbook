@@ -743,7 +743,6 @@
       font-size: 2rem;
       font-weight: 700;
       margin: 10px 0 5px;
-      color: #059669;
     }
     
     .modal-seller {
@@ -765,16 +764,15 @@
       border-top: 1px solid #e2e8f0;
     }
     
-    /* ========== 1st PRIZE MODAL - CREATIVE PROFESSIONAL ========== */
+    /* ========== 1st PRIZE MODAL - GOLD THEME ========== */
     .first-prize-modal {
       background: linear-gradient(135deg, #f5f0e0 0%, #fff5d6 100%);
-      border: 8px solid #D4AF37;  /* Rich Gold border */
+      border: 8px solid #D4AF37;
       box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4), 0 0 0 2px #f1e6b0 inset;
       position: relative;
       padding: 35px 20px;
     }
     
-    /* Crown only - with glow */
     .first-prize-modal .modal-icon {
       font-size: 100px;
       line-height: 1;
@@ -809,9 +807,7 @@
       padding: 12px 35px;
     }
     
-    /* Prize with zoom animation */
     .first-prize-modal .modal-prize {
-      font-size: 2.3rem;
       color: #8B6911;
       font-weight: 800;
       text-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
@@ -820,13 +816,7 @@
       padding: 8px 25px;
       border-radius: 50px;
       margin: 10px 0;
-      animation: prizeZoom 1.2s ease-in-out 3;  /* Zoom in/out 3 times */
-    }
-    
-    @keyframes prizeZoom {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.15); }  /* Zoom in 15% */
-      100% { transform: scale(1); }
+      animation: prizeZoom 1.2s ease-in-out 3;
     }
     
     .first-prize-modal .modal-seller {
@@ -839,7 +829,6 @@
       border: 2px solid #8B6911;
     }
     
-    /* Special highlight for the winning message */
     .first-prize-modal .modal-message {
       font-size: 1.4rem;
       font-weight: 700;
@@ -854,22 +843,264 @@
       letter-spacing: 1px;
     }
     
-    /* OTHER WINNERS MODAL (2nd-5th & Consolation) */
-    .winner-modal {
-      border: 4px solid #10b981;
-      background: linear-gradient(145deg, #f0fff4, #ffffff);
+    /* ========== 2nd PRIZE MODAL - SILVER THEME ========== */
+    .second-prize-modal {
+      background: linear-gradient(135deg, #f0f4f8 0%, #e6eaef 100%);
+      border: 8px solid #9aa9b9;
+      box-shadow: 0 20px 40px rgba(154, 169, 185, 0.4);
+      padding: 35px 20px;
     }
     
-    .winner-modal .modal-icon {
-      animation: confetti 1.5s infinite;
+    .second-prize-modal .modal-icon {
+      font-size: 90px;
+      filter: drop-shadow(0 8px 12px rgba(154, 169, 185, 0.6));
     }
     
-    .winner-modal .modal-title {
-      color: #047857;
+    .second-prize-modal .modal-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #4a5568;
+      letter-spacing: 1px;
     }
     
-    .winner-modal .modal-prize {
-      color: #047857;
+    .second-prize-modal .modal-ticket {
+      background: #cbd5e0;
+      color: #2d3748;
+      border: 3px solid #718096;
+    }
+    
+    .second-prize-modal .modal-prize {
+      color: #4a5568;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.7);
+      display: inline-block;
+      padding: 8px 25px;
+      border-radius: 50px;
+      margin: 10px 0;
+      animation: prizeZoom 1.2s ease-in-out 3;
+    }
+    
+    .second-prize-modal .modal-seller {
+      background: #9aa9b9;
+      color: white;
+      font-weight: 600;
+      border: 2px solid #4a5568;
+    }
+    
+    .second-prize-modal .modal-message {
+      background: #e2e8f0;
+      color: #2d3748;
+      padding: 15px 20px;
+      border-radius: 60px;
+      border: 2px solid #9aa9b9;
+    }
+    
+    /* ========== 3rd PRIZE MODAL - BRONZE THEME ========== */
+    .third-prize-modal {
+      background: linear-gradient(135deg, #faf0e6 0%, #f5e0cc 100%);
+      border: 8px solid #b87333;
+      box-shadow: 0 20px 40px rgba(184, 115, 51, 0.4);
+      padding: 35px 20px;
+    }
+    
+    .third-prize-modal .modal-icon {
+      font-size: 90px;
+      filter: drop-shadow(0 8px 12px rgba(184, 115, 51, 0.6));
+    }
+    
+    .third-prize-modal .modal-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #8b5a2b;
+      letter-spacing: 1px;
+    }
+    
+    .third-prize-modal .modal-ticket {
+      background: #e6c9a8;
+      color: #5a3e1b;
+      border: 3px solid #b87333;
+    }
+    
+    .third-prize-modal .modal-prize {
+      color: #b87333;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.7);
+      display: inline-block;
+      padding: 8px 25px;
+      border-radius: 50px;
+      margin: 10px 0;
+      animation: prizeZoom 1.2s ease-in-out 3;
+    }
+    
+    .third-prize-modal .modal-seller {
+      background: #b87333;
+      color: white;
+      font-weight: 600;
+      border: 2px solid #8b5a2b;
+    }
+    
+    .third-prize-modal .modal-message {
+      background: #f5e0cc;
+      color: #8b5a2b;
+      padding: 15px 20px;
+      border-radius: 60px;
+      border: 2px solid #b87333;
+    }
+    
+    /* ========== 4th PRIZE MODAL - BLUE THEME ========== */
+    .fourth-prize-modal {
+      background: linear-gradient(135deg, #e6f0fa 0%, #cce1f5 100%);
+      border: 8px solid #3182ce;
+      box-shadow: 0 20px 40px rgba(49, 130, 206, 0.4);
+      padding: 35px 20px;
+    }
+    
+    .fourth-prize-modal .modal-icon {
+      font-size: 90px;
+      filter: drop-shadow(0 8px 12px rgba(49, 130, 206, 0.6));
+    }
+    
+    .fourth-prize-modal .modal-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #2b6cb0;
+      letter-spacing: 1px;
+    }
+    
+    .fourth-prize-modal .modal-ticket {
+      background: #bee3f8;
+      color: #1e4e8c;
+      border: 3px solid #3182ce;
+    }
+    
+    .fourth-prize-modal .modal-prize {
+      color: #2b6cb0;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.7);
+      display: inline-block;
+      padding: 8px 25px;
+      border-radius: 50px;
+      margin: 10px 0;
+      animation: prizeZoom 1.2s ease-in-out 3;
+    }
+    
+    .fourth-prize-modal .modal-seller {
+      background: #3182ce;
+      color: white;
+      font-weight: 600;
+      border: 2px solid #2b6cb0;
+    }
+    
+    .fourth-prize-modal .modal-message {
+      background: #cce1f5;
+      color: #1e4e8c;
+      padding: 15px 20px;
+      border-radius: 60px;
+      border: 2px solid #3182ce;
+    }
+    
+    /* ========== 5th PRIZE MODAL - PURPLE THEME ========== */
+    .fifth-prize-modal {
+      background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+      border: 8px solid #805ad5;
+      box-shadow: 0 20px 40px rgba(128, 90, 213, 0.4);
+      padding: 35px 20px;
+    }
+    
+    .fifth-prize-modal .modal-icon {
+      font-size: 90px;
+      filter: drop-shadow(0 8px 12px rgba(128, 90, 213, 0.6));
+    }
+    
+    .fifth-prize-modal .modal-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #6b46c1;
+      letter-spacing: 1px;
+    }
+    
+    .fifth-prize-modal .modal-ticket {
+      background: #d6bcfa;
+      color: #553c9a;
+      border: 3px solid #805ad5;
+    }
+    
+    .fifth-prize-modal .modal-prize {
+      color: #6b46c1;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.7);
+      display: inline-block;
+      padding: 8px 25px;
+      border-radius: 50px;
+      margin: 10px 0;
+      animation: prizeZoom 1.2s ease-in-out 3;
+    }
+    
+    .fifth-prize-modal .modal-seller {
+      background: #805ad5;
+      color: white;
+      font-weight: 600;
+      border: 2px solid #6b46c1;
+    }
+    
+    .fifth-prize-modal .modal-message {
+      background: #e9d5ff;
+      color: #553c9a;
+      padding: 15px 20px;
+      border-radius: 60px;
+      border: 2px solid #805ad5;
+    }
+    
+    /* ========== CONSOLATION PRIZE MODAL - TEAL THEME ========== */
+    .consolation-modal {
+      background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+      border: 8px solid #319795;
+      box-shadow: 0 20px 40px rgba(49, 151, 149, 0.4);
+      padding: 35px 20px;
+    }
+    
+    .consolation-modal .modal-icon {
+      font-size: 90px;
+      filter: drop-shadow(0 8px 12px rgba(49, 151, 149, 0.6));
+    }
+    
+    .consolation-modal .modal-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #2c7a7b;
+      letter-spacing: 1px;
+    }
+    
+    .consolation-modal .modal-ticket {
+      background: #b2f5ea;
+      color: #234e52;
+      border: 3px solid #319795;
+    }
+    
+    .consolation-modal .modal-prize {
+      color: #2c7a7b;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.7);
+      display: inline-block;
+      padding: 8px 25px;
+      border-radius: 50px;
+      margin: 10px 0;
+      animation: prizeZoom 1.2s ease-in-out 3;
+    }
+    
+    .consolation-modal .modal-seller {
+      background: #319795;
+      color: white;
+      font-weight: 600;
+      border: 2px solid #2c7a7b;
+    }
+    
+    .consolation-modal .modal-message {
+      background: #b2f5ea;
+      color: #234e52;
+      padding: 15px 20px;
+      border-radius: 60px;
+      border: 2px solid #319795;
     }
     
     /* NON-WINNER MODAL - RED */
@@ -887,17 +1118,10 @@
       font-weight: 600;
     }
     
-    /* Animations */
-    @keyframes bounce {
-      from { transform: translateY(0); }
-      to { transform: translateY(-10px); }
-    }
-    
-    @keyframes confetti {
+    /* Global Zoom Animation for ALL prizes */
+    @keyframes prizeZoom {
       0% { transform: scale(1); }
-      25% { transform: scale(1.2) rotate(-10deg); }
-      50% { transform: scale(1) rotate(0); }
-      75% { transform: scale(1.2) rotate(10deg); }
+      50% { transform: scale(1.15); }
       100% { transform: scale(1); }
     }
     
@@ -940,7 +1164,7 @@
       </div>
     </div>
 
-    <!-- Winners Table (with data-ticket attributes) -->
+    <!-- Winners Table -->
     <div class="table-container">
       <table class="winners-table">
         <thead>
@@ -958,25 +1182,25 @@
             <td class="prize first-prize">200,000 LKR</td>
             <td class="seller-name">Thilina Perera</td>
           </tr>
-          <tr class="winner-row" data-ticket="1015212">
+          <tr class="winner-row" data-ticket="1015212" data-rank="2nd">
             <td class="rank-number"><p>2<sup>nd</sup> Prize</p></td>
             <td><span class="winning-number">1015212</span></td>
             <td class="prize">100,000 LKR</td>
             <td class="seller-name">Thilina Amarasinghe</td>
           </tr>
-          <tr class="winner-row" data-ticket="1015213">
+          <tr class="winner-row" data-ticket="1015213" data-rank="3rd">
             <td class="rank-number"><p>3<sup>rd</sup> Prize</p></td>
             <td><span class="winning-number">1015213</span></td>
             <td class="prize">75,000 LKR</td>
             <td class="seller-name">Thilina Amarasinghe</td>
           </tr>
-          <tr class="winner-row" data-ticket="1015214">
+          <tr class="winner-row" data-ticket="1015214" data-rank="4th">
             <td class="rank-number"><p>4<sup>th</sup> Prize</p></td>
             <td><span class="winning-number">1015214</span></td>
             <td class="prize">50,000 LKR</td>
             <td class="seller-name">Dushani Silva</td>
           </tr>
-          <tr class="winner-row" data-ticket="1015215">
+          <tr class="winner-row" data-ticket="1015215" data-rank="5th">
             <td class="rank-number"><p>5<sup>th</sup> Prize</p></td>
             <td><span class="winning-number">1015215</span></td>
             <td class="prize">25,000 LKR</td>
@@ -994,7 +1218,7 @@
       </div>
     </div>
 
-    <!-- Consolation Table (with data-ticket attributes) -->
+    <!-- Consolation Table -->
     <div class="table-container">
       <table class="sanasili-table">
         <thead>
@@ -1020,7 +1244,7 @@
     </div>
   </div>
 
-  <!-- MODAL for QR scan result -->
+  <!-- MODAL -->
   <div id="resultModal" class="modal-overlay">
     <div class="modal-content" id="modalContent">
       <span class="modal-close" id="closeModal">&times;</span>
@@ -1035,55 +1259,31 @@
 
   <script>
     (function() {
-      // Get ticket parameter from URL
       function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
       }
 
-      // Build winners map from table rows
       function buildWinnersMap() {
         const winners = new Map();
         
-        // Winners table
         document.querySelectorAll('.winners-table tbody tr').forEach(row => {
           const ticket = row.getAttribute('data-ticket');
-          if (!ticket) return;
-          const rankElem = row.querySelector('.rank-number p') || row.querySelector('.rank-number');
-          const rank = rankElem ? rankElem.innerText.trim() : '';
-          const prizeElem = row.querySelector('.prize');
-          const prize = prizeElem ? prizeElem.innerText.trim() : '';
-          const sellerElem = row.querySelector('.seller-name');
-          const seller = sellerElem ? sellerElem.innerText.trim() : '';
-          const isFirst = row.hasAttribute('data-rank') || rank.includes('1st');
-          winners.set(ticket, { 
-            type: 'winner', 
-            rank, 
-            prize, 
-            seller,
-            isFirst: isFirst
-          });
+          const rank = row.getAttribute('data-rank');
+          const prize = row.querySelector('.prize')?.innerText.trim() || '';
+          const seller = row.querySelector('.seller-name')?.innerText.trim() || '';
+          if (ticket) winners.set(ticket, { type: 'winner', rank, prize, seller });
         });
 
-        // Consolation table
         document.querySelectorAll('.sanasili-table tbody tr').forEach(row => {
           const ticket = row.getAttribute('data-ticket');
-          if (!ticket) return;
-          const rank = row.querySelector('.rank-number')?.innerText.trim() || '';
           const seller = row.querySelector('.seller-name')?.innerText.trim() || '';
-          winners.set(ticket, { 
-            type: 'consolation', 
-            rank, 
-            prize: '10,000 LKR', 
-            seller,
-            isFirst: false
-          });
+          if (ticket) winners.set(ticket, { type: 'consolation', rank: 'consolation', prize: '10,000 LKR', seller });
         });
 
         return winners;
       }
 
-      // Show modal with all details
       function showResultModal(ticketNumber, winnerInfo) {
         const modal = document.getElementById('resultModal');
         const modalContent = document.getElementById('modalContent');
@@ -1094,46 +1294,47 @@
         const modalSeller = document.getElementById('modalSeller');
         const modalMessage = document.getElementById('modalMessage');
 
-        // Reset classes
         modalContent.className = 'modal-content';
-        
         modalTicket.innerText = ticketNumber;
 
         if (winnerInfo) {
-          if (winnerInfo.isFirst) {
-            // 1st PRIZE - PROFESSIONAL GOLD THEME with Crown only and prize zoom
+          const rank = winnerInfo.rank?.toLowerCase() || '';
+          
+          // Set appropriate class based on rank
+          if (rank.includes('1st')) {
             modalContent.classList.add('first-prize-modal');
-            modalIcon.innerText = '👑';  // Crown only
-            modalTitle.innerText = 'CONGRATULATIONS!';
-            modalPrize.innerText = winnerInfo.prize;
-            modalSeller.innerText = `Seller: ${winnerInfo.seller}`;
-            modalMessage.innerText = 'You won the 1st Prize! Amazing luck!';
-          } 
-          else if (winnerInfo.type === 'winner') {
-            // 2nd-5th PRIZE
-            modalContent.classList.add('winner-modal');
-            modalIcon.innerText = '🏆';
-            modalTitle.innerText = 'CONGRATULATIONS!';
-            modalPrize.innerText = winnerInfo.prize;
-            modalSeller.innerText = `Seller: ${winnerInfo.seller}`;
-            modalMessage.innerText = 'You are a winner! Well done! 🎉';
-          } 
-          else {
-            // CONSOLATION
-            modalContent.classList.add('winner-modal');
+            modalIcon.innerText = '👑';
+          } else if (rank.includes('2nd')) {
+            modalContent.classList.add('second-prize-modal');
+            modalIcon.innerText = '🥈';
+          } else if (rank.includes('3rd')) {
+            modalContent.classList.add('third-prize-modal');
+            modalIcon.innerText = '🥉';
+          } else if (rank.includes('4th')) {
+            modalContent.classList.add('fourth-prize-modal');
+            modalIcon.innerText = '🎯';
+          } else if (rank.includes('5th')) {
+            modalContent.classList.add('fifth-prize-modal');
+            modalIcon.innerText = '⭐';
+          } else {
+            modalContent.classList.add('consolation-modal');
             modalIcon.innerText = '🎉';
-            modalTitle.innerText = 'CONGRATULATIONS!';
-            modalPrize.innerText = winnerInfo.prize;
-            modalSeller.innerText = `Seller: ${winnerInfo.seller}`;
-            modalMessage.innerText = 'You won a consolation prize! 🎊';
           }
+          
+          modalTitle.innerText = 'CONGRATULATIONS!';
+          modalPrize.innerText = winnerInfo.prize;
+          modalSeller.innerText = `Seller: ${winnerInfo.seller}`;
+          modalMessage.innerText = rank.includes('1st') ? 'You won the 1st Prize! Amazing luck!' : 
+                                  rank.includes('2nd') ? 'You won the 2nd Prize! Excellent!' :
+                                  rank.includes('3rd') ? 'You won the 3rd Prize! Great job!' :
+                                  rank.includes('4th') ? 'You won the 4th Prize! Well done!' :
+                                  rank.includes('5th') ? 'You won the 5th Prize! Congratulations!' :
+                                  'You won a consolation prize! Well done!';
 
-          // Highlight the row
           document.querySelectorAll(`tr[data-ticket="${ticketNumber}"]`).forEach(row => {
             row.classList.add('highlight-row');
           });
         } else {
-          // NOT A WINNER
           modalContent.classList.add('non-winner-modal');
           modalIcon.innerText = '😞';
           modalTitle.innerText = 'SORRY';
@@ -1145,13 +1346,11 @@
         modal.style.display = 'flex';
       }
 
-      // Close modal
       function closeModal() {
         document.getElementById('resultModal').style.display = 'none';
         document.querySelectorAll('.highlight-row').forEach(r => r.classList.remove('highlight-row'));
       }
 
-      // Execute
       document.addEventListener('DOMContentLoaded', function() {
         const ticket = getQueryParam('ticket');
         if (!ticket) return;
@@ -1159,21 +1358,14 @@
         const winnersMap = buildWinnersMap();
         const info = winnersMap.get(ticket) || null;
 
-        setTimeout(() => {
-          showResultModal(ticket, info);
-        }, 100);
+        setTimeout(() => showResultModal(ticket, info), 100);
 
-        // Close events
         document.getElementById('closeModal').addEventListener('click', closeModal);
-        window.addEventListener('click', function(e) {
-          if (e.target === document.getElementById('resultModal')) {
-            closeModal();
-          }
+        window.addEventListener('click', e => {
+          if (e.target === document.getElementById('resultModal')) closeModal();
         });
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') {
-            closeModal();
-          }
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape') closeModal();
         });
       });
     })();
