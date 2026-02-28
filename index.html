@@ -765,56 +765,93 @@
       border-top: 1px solid #e2e8f0;
     }
     
-    /* 1st PRIZE MODAL - GOLD/YELLOW THEME */
+    /* ========== 1st PRIZE MODAL - CREATIVE PROFESSIONAL ========== */
     .first-prize-modal {
-      background: linear-gradient(145deg, #fff9e6, #fff0c0);
-      border: 6px solid #FFD700;
-      box-shadow: 0 0 40px rgba(255, 215, 0, 0.7);
+      background: linear-gradient(135deg, #f5f0e0 0%, #fff5d6 100%);
+      border: 8px solid #D4AF37;  /* Rich Gold border */
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4), 0 0 0 2px #f1e6b0 inset;
       position: relative;
-      overflow: hidden;
+      padding: 35px 20px;
     }
     
-    .first-prize-modal::before {
-      content: '✨👑✨';
-      position: absolute;
-      top: -10px;
-      left: 0;
-      width: 100%;
-      font-size: 40px;
-      opacity: 0.3;
-      animation: sparkleMove 4s linear infinite;
-      pointer-events: none;
-    }
-    
+    /* Crown only - with glow */
     .first-prize-modal .modal-icon {
-      font-size: 80px;
-      animation: bounce 1s infinite alternate;
+      font-size: 100px;
+      line-height: 1;
+      margin-bottom: 5px;
+      filter: drop-shadow(0 8px 12px rgba(212, 175, 55, 0.6));
+      animation: crownGlow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes crownGlow {
+      from { transform: scale(1); text-shadow: 0 0 10px gold; }
+      to { transform: scale(1.05); text-shadow: 0 0 25px #ffaa00; }
     }
     
     .first-prize-modal .modal-title {
-      color: #b45309;
       font-size: 2.5rem;
-      text-shadow: 2px 2px 0 #FFD700;
+      font-weight: 800;
+      background: linear-gradient(135deg, #8B6911, #D4AF37, #8B6911);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 5px;
+      letter-spacing: 2px;
     }
     
     .first-prize-modal .modal-ticket {
-      background: #FFD700;
-      color: #1e1e1e;
-      border-color: #b45309;
+      background: linear-gradient(145deg, #D4AF37, #f5e6b0);
+      color: #2d1f00;
+      border: 3px solid #8B6911;
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
       font-weight: 900;
-      box-shadow: 0 0 20px gold;
+      font-size: 2.8rem;
+      padding: 12px 35px;
     }
     
+    /* Prize with zoom animation */
     .first-prize-modal .modal-prize {
-      color: #b45309;
-      font-size: 2.2rem;
-      text-decoration: underline wavy gold;
+      font-size: 2.3rem;
+      color: #8B6911;
+      font-weight: 800;
+      text-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
+      background: rgba(255, 255, 255, 0.7);
+      display: inline-block;
+      padding: 8px 25px;
+      border-radius: 50px;
+      margin: 10px 0;
+      animation: prizeZoom 1.2s ease-in-out 3;  /* Zoom in/out 3 times */
+    }
+    
+    @keyframes prizeZoom {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }  /* Zoom in 15% */
+      100% { transform: scale(1); }
     }
     
     .first-prize-modal .modal-seller {
-      background: gold;
+      background: #D4AF37;
       color: #1e1e1e;
       font-weight: 600;
+      font-size: 1.4rem;
+      padding: 10px 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border: 2px solid #8B6911;
+    }
+    
+    /* Special highlight for the winning message */
+    .first-prize-modal .modal-message {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #fcf3cf, #fae6b3);
+      color: #744e0e;
+      padding: 15px 20px;
+      border-radius: 60px;
+      border: 2px solid #D4AF37;
+      margin-top: 20px;
+      box-shadow: 0 5px 0 #8B6911;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     
     /* OTHER WINNERS MODAL (2nd-5th & Consolation) */
@@ -851,11 +888,6 @@
     }
     
     /* Animations */
-    @keyframes sparkleMove {
-      0% { transform: translateX(-100%) rotate(0deg); }
-      100% { transform: translateX(100%) rotate(20deg); }
-    }
-    
     @keyframes bounce {
       from { transform: translateY(0); }
       to { transform: translateY(-10px); }
@@ -1069,13 +1101,13 @@
 
         if (winnerInfo) {
           if (winnerInfo.isFirst) {
-            // 1st PRIZE - GOLD THEME
+            // 1st PRIZE - PROFESSIONAL GOLD THEME with Crown only and prize zoom
             modalContent.classList.add('first-prize-modal');
-            modalIcon.innerText = '👑🏆👑';
+            modalIcon.innerText = '👑';  // Crown only
             modalTitle.innerText = 'CONGRATULATIONS!';
             modalPrize.innerText = winnerInfo.prize;
             modalSeller.innerText = `Seller: ${winnerInfo.seller}`;
-            modalMessage.innerText = 'You won the 1st Prize! Amazing luck! 🎊';
+            modalMessage.innerText = 'You won the 1st Prize! Amazing luck!';
           } 
           else if (winnerInfo.type === 'winner') {
             // 2nd-5th PRIZE
