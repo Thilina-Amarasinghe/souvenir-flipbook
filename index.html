@@ -689,8 +689,7 @@
       box-shadow: var(--shadow);
       position: relative;
       animation: modalFadeIn 0.4s;
-      border: 3px solid transparent;
-      background-clip: padding-box;
+      border: 4px solid #ccc;
     }
     
     @keyframes modalFadeIn {
@@ -708,6 +707,7 @@
       cursor: pointer;
       transition: color 0.2s;
       line-height: 1;
+      z-index: 10;
     }
     
     .modal-close:hover {
@@ -715,90 +715,164 @@
     }
     
     .modal-icon {
-      font-size: 60px;
-      margin-bottom: 15px;
+      font-size: 70px;
+      margin-bottom: 10px;
     }
     
     .modal-title {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       color: #2d3748;
     }
     
     .modal-ticket {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       font-weight: 800;
       color: #2d3748;
       background: #f7fafc;
       display: inline-block;
-      padding: 10px 25px;
-      border-radius: 50px;
-      margin: 15px 0;
+      padding: 12px 30px;
+      border-radius: 60px;
+      margin: 10px 0 15px;
       letter-spacing: 2px;
-      border: 2px dashed #667eea;
+      border: 3px dashed #667eea;
     }
     
     .modal-prize {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 10px 0 5px;
       color: #059669;
-      margin: 5px 0;
     }
     
     .modal-seller {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      font-weight: 500;
       color: #4a5568;
-      margin: 10px 0;
+      margin: 5px 0 10px;
+      background: #edf2f7;
+      padding: 8px 20px;
+      border-radius: 40px;
+      display: inline-block;
     }
     
     .modal-message {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: #718096;
       margin-top: 15px;
       padding-top: 15px;
       border-top: 1px solid #e2e8f0;
     }
     
-    /* Winner modal special border */
-    .winner-modal {
-      border-color: #ffd700;
-      box-shadow: 0 0 30px rgba(255,215,0,0.5);
-    }
-    
-    /* First winner special particle effect (simulated with animated pseudo-element) */
-    .first-winner-modal {
+    /* 1st PRIZE MODAL - GOLD/YELLOW THEME */
+    .first-prize-modal {
+      background: linear-gradient(145deg, #fff9e6, #fff0c0);
+      border: 6px solid #FFD700;
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.7);
       position: relative;
       overflow: hidden;
     }
-    .first-winner-modal::before {
-      content: '✨🎉✨';
+    
+    .first-prize-modal::before {
+      content: '✨👑✨';
       position: absolute;
       top: -10px;
       left: 0;
       width: 100%;
-      font-size: 30px;
-      opacity: 0.6;
-      animation: sparkleMove 3s linear infinite;
+      font-size: 40px;
+      opacity: 0.3;
+      animation: sparkleMove 4s linear infinite;
       pointer-events: none;
     }
+    
+    .first-prize-modal .modal-icon {
+      font-size: 80px;
+      animation: bounce 1s infinite alternate;
+    }
+    
+    .first-prize-modal .modal-title {
+      color: #b45309;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 0 #FFD700;
+    }
+    
+    .first-prize-modal .modal-ticket {
+      background: #FFD700;
+      color: #1e1e1e;
+      border-color: #b45309;
+      font-weight: 900;
+      box-shadow: 0 0 20px gold;
+    }
+    
+    .first-prize-modal .modal-prize {
+      color: #b45309;
+      font-size: 2.2rem;
+      text-decoration: underline wavy gold;
+    }
+    
+    .first-prize-modal .modal-seller {
+      background: gold;
+      color: #1e1e1e;
+      font-weight: 600;
+    }
+    
+    /* OTHER WINNERS MODAL (2nd-5th & Consolation) */
+    .winner-modal {
+      border: 4px solid #10b981;
+      background: linear-gradient(145deg, #f0fff4, #ffffff);
+    }
+    
+    .winner-modal .modal-icon {
+      animation: confetti 1.5s infinite;
+    }
+    
+    .winner-modal .modal-title {
+      color: #047857;
+    }
+    
+    .winner-modal .modal-prize {
+      color: #047857;
+    }
+    
+    /* NON-WINNER MODAL - RED */
+    .non-winner-modal {
+      border: 4px solid #dc2626;
+      background: #fee2e2;
+    }
+    
+    .non-winner-modal .modal-title {
+      color: #b91c1c;
+    }
+    
+    .non-winner-modal .modal-message {
+      color: #991b1b;
+      font-weight: 600;
+    }
+    
+    /* Animations */
     @keyframes sparkleMove {
       0% { transform: translateX(-100%) rotate(0deg); }
       100% { transform: translateX(100%) rotate(20deg); }
     }
     
-    /* Non-winner modal red style */
-    .non-winner-modal .modal-title {
-      color: #dc2626;
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
     }
-    .non-winner-modal .modal-message {
-      color: #b91c1c;
-      font-weight: 500;
+    
+    @keyframes confetti {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.2) rotate(-10deg); }
+      50% { transform: scale(1) rotate(0); }
+      75% { transform: scale(1.2) rotate(10deg); }
+      100% { transform: scale(1); }
     }
     
     .highlight-row {
       background: #fff9c4 !important;
-      transition: background 0.5s;
+      box-shadow: 0 0 15px gold;
+      transition: all 0.3s;
     }
   </style>
 </head>
@@ -846,7 +920,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="winner-row" data-ticket="1015211">
+          <tr class="winner-row" data-ticket="1015211" data-rank="1st">
             <td class="rank-number"><p>1<sup>st</sup> Prize</p></td>
             <td><span class="winning-number"><span class="trophy-icon">👑</span>1015211</span></td>
             <td class="prize first-prize">200,000 LKR</td>
@@ -921,10 +995,8 @@
       <div class="modal-icon" id="modalIcon">🎫</div>
       <div class="modal-title" id="modalTitle">Ticket Check</div>
       <div class="modal-ticket" id="modalTicketNumber">---</div>
-      <div id="modalPrizeSection">
-        <div class="modal-prize" id="modalPrize"></div>
-        <div class="modal-seller" id="modalSeller"></div>
-      </div>
+      <div class="modal-prize" id="modalPrize"></div>
+      <div class="modal-seller" id="modalSeller"></div>
       <div class="modal-message" id="modalMessage"></div>
     </div>
   </div>
@@ -937,11 +1009,11 @@
         return urlParams.get(param);
       }
 
-      // Build winners map from table rows (using data-ticket)
+      // Build winners map from table rows
       function buildWinnersMap() {
-        const winners = new Map(); // key: ticket number (string), value: { type, rank, prize, seller }
+        const winners = new Map();
         
-        // Winners table rows
+        // Winners table
         document.querySelectorAll('.winners-table tbody tr').forEach(row => {
           const ticket = row.getAttribute('data-ticket');
           if (!ticket) return;
@@ -951,22 +1023,35 @@
           const prize = prizeElem ? prizeElem.innerText.trim() : '';
           const sellerElem = row.querySelector('.seller-name');
           const seller = sellerElem ? sellerElem.innerText.trim() : '';
-          winners.set(ticket, { type: 'winner', rank, prize, seller });
+          const isFirst = row.hasAttribute('data-rank') || rank.includes('1st');
+          winners.set(ticket, { 
+            type: 'winner', 
+            rank, 
+            prize, 
+            seller,
+            isFirst: isFirst
+          });
         });
 
-        // Consolation table rows
+        // Consolation table
         document.querySelectorAll('.sanasili-table tbody tr').forEach(row => {
           const ticket = row.getAttribute('data-ticket');
           if (!ticket) return;
           const rank = row.querySelector('.rank-number')?.innerText.trim() || '';
           const seller = row.querySelector('.seller-name')?.innerText.trim() || '';
-          winners.set(ticket, { type: 'consolation', rank, prize: '10,000 LKR', seller });
+          winners.set(ticket, { 
+            type: 'consolation', 
+            rank, 
+            prize: '10,000 LKR', 
+            seller,
+            isFirst: false
+          });
         });
 
         return winners;
       }
 
-      // Show modal with result (English only)
+      // Show modal with all details
       function showResultModal(ticketNumber, winnerInfo) {
         const modal = document.getElementById('resultModal');
         const modalContent = document.getElementById('modalContent');
@@ -976,45 +1061,53 @@
         const modalPrize = document.getElementById('modalPrize');
         const modalSeller = document.getElementById('modalSeller');
         const modalMessage = document.getElementById('modalMessage');
-        const prizeSection = document.getElementById('modalPrizeSection');
 
         // Reset classes
-        modalContent.classList.remove('winner-modal', 'first-winner-modal', 'non-winner-modal');
+        modalContent.className = 'modal-content';
         
         modalTicket.innerText = ticketNumber;
 
         if (winnerInfo) {
-          // Winner or consolation
-          if (winnerInfo.type === 'winner') {
+          if (winnerInfo.isFirst) {
+            // 1st PRIZE - GOLD THEME
+            modalContent.classList.add('first-prize-modal');
+            modalIcon.innerText = '👑🏆👑';
+            modalTitle.innerText = 'CONGRATULATIONS!';
+            modalPrize.innerText = winnerInfo.prize;
+            modalSeller.innerText = `Seller: ${winnerInfo.seller}`;
+            modalMessage.innerText = 'You won the 1st Prize! Amazing luck! 🎊';
+          } 
+          else if (winnerInfo.type === 'winner') {
+            // 2nd-5th PRIZE
+            modalContent.classList.add('winner-modal');
             modalIcon.innerText = '🏆';
-            modalTitle.innerText = 'WINNER!';
-            // Check if it's first prize
-            if (winnerInfo.rank && winnerInfo.rank.includes('1st')) {
-              modalContent.classList.add('first-winner-modal'); // add sparkle effect
-            }
-          } else {
+            modalTitle.innerText = 'CONGRATULATIONS!';
+            modalPrize.innerText = winnerInfo.prize;
+            modalSeller.innerText = `Seller: ${winnerInfo.seller}`;
+            modalMessage.innerText = 'You are a winner! Well done! 🎉';
+          } 
+          else {
+            // CONSOLATION
+            modalContent.classList.add('winner-modal');
             modalIcon.innerText = '🎉';
-            modalTitle.innerText = 'CONSOLATION PRIZE!';
+            modalTitle.innerText = 'CONGRATULATIONS!';
+            modalPrize.innerText = winnerInfo.prize;
+            modalSeller.innerText = `Seller: ${winnerInfo.seller}`;
+            modalMessage.innerText = 'You won a consolation prize! 🎊';
           }
-          modalPrize.innerText = winnerInfo.prize;
-          modalSeller.innerText = `Seller: ${winnerInfo.seller}`;
-          modalMessage.innerText = 'Congratulations!';
-          prizeSection.style.display = 'block';
-          modalContent.classList.add('winner-modal');
 
-          // Highlight the corresponding row in table
+          // Highlight the row
           document.querySelectorAll(`tr[data-ticket="${ticketNumber}"]`).forEach(row => {
             row.classList.add('highlight-row');
           });
         } else {
-          // Not a winner
+          // NOT A WINNER
+          modalContent.classList.add('non-winner-modal');
           modalIcon.innerText = '😞';
           modalTitle.innerText = 'SORRY';
           modalPrize.innerText = '';
           modalSeller.innerText = '';
           modalMessage.innerText = 'Not a winner this time. Better luck next time!';
-          prizeSection.style.display = 'none';
-          modalContent.classList.add('non-winner-modal');
         }
 
         modal.style.display = 'flex';
@@ -1023,32 +1116,28 @@
       // Close modal
       function closeModal() {
         document.getElementById('resultModal').style.display = 'none';
-        // Remove row highlights
         document.querySelectorAll('.highlight-row').forEach(r => r.classList.remove('highlight-row'));
       }
 
-      // Execute after DOM ready
+      // Execute
       document.addEventListener('DOMContentLoaded', function() {
         const ticket = getQueryParam('ticket');
-        if (!ticket) return; // No ticket parameter, exit
+        if (!ticket) return;
 
         const winnersMap = buildWinnersMap();
         const info = winnersMap.get(ticket) || null;
 
-        // Slight delay for smooth appearance
         setTimeout(() => {
           showResultModal(ticket, info);
         }, 100);
 
-        // Close button event
+        // Close events
         document.getElementById('closeModal').addEventListener('click', closeModal);
-        // Click outside to close
         window.addEventListener('click', function(e) {
           if (e.target === document.getElementById('resultModal')) {
             closeModal();
           }
         });
-        // Escape key
         document.addEventListener('keydown', function(e) {
           if (e.key === 'Escape') {
             closeModal();
