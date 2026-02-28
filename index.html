@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raffle Draw Results</title>
+  <title>Raffle Draw Results - DLB Welfare Society</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -358,6 +358,113 @@
       font-weight: 500;
     }
     
+    /* Modal Styles (blended with existing theme) */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+    
+    .modal-content {
+      background: white;
+      max-width: 450px;
+      width: 90%;
+      border-radius: 30px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      animation: modalFadeIn 0.4s;
+      border: 3px solid transparent;
+      background-clip: padding-box;
+    }
+    
+    .winner-modal {
+      background: linear-gradient(white, white) padding-box, var(--winner-gradient) border-box;
+    }
+    
+    .loser-modal {
+      background: linear-gradient(white, white) padding-box, linear-gradient(135deg, #a1a1a1, #4a5568) border-box;
+    }
+    
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 15px; right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #aaa;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .modal-close:hover {
+      color: #333;
+    }
+    
+    .modal-icon {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+    
+    .modal-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .modal-ticket {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #2d3748;
+      background: #f7fafc;
+      display: inline-block;
+      padding: 10px 25px;
+      border-radius: 50px;
+      margin: 15px 0;
+      letter-spacing: 2px;
+      border: 2px dashed #667eea;
+    }
+    
+    .modal-prize {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #059669;
+      margin: 5px 0;
+    }
+    
+    .modal-seller {
+      font-size: 1.2rem;
+      color: #4a5568;
+      margin: 10px 0;
+    }
+    
+    .modal-message {
+      font-size: 1.1rem;
+      color: #718096;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    .highlight-row {
+      background: #fff9c4 !important;
+      transition: background 0.5s;
+    }
+    
     /* Mobile Responsive Styles - Enhanced */
     @media (max-width: 768px) {
       body {
@@ -409,7 +516,6 @@
         margin-bottom: 30px;
       }
       
-      /* Table responsiveness */
       table {
         font-size: 14px;
       }
@@ -466,7 +572,6 @@
         margin-right: 5px;
       }
       
-      /* Very small screens */
       @media (max-width: 480px) {
         .header h1 { 
           font-size: 1.5rem;
@@ -520,7 +625,6 @@
       }
     }
     
-    /* Extra small screens (very small phones) */
     @media (max-width: 360px) {
       body {
         padding: 10px 5px;
@@ -573,7 +677,6 @@
       }
     }
     
-    /* Landscape orientation on mobile */
     @media (max-width: 768px) and (orientation: landscape) {
       .header-content {
         flex-direction: row;
@@ -630,7 +733,7 @@
       </div>
     </div>
 
-    <!-- Winners Table -->
+    <!-- Winners Table (with data-ticket added) -->
     <div class="table-container">
       <table class="winners-table">
         <thead>
@@ -642,31 +745,31 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="winner-row">
+          <tr class="winner-row" data-ticket="1000001">
             <td class="rank-number"><p>1<sup>st</sup> Prize</p></td>
             <td><span class="winning-number"><span class="trophy-icon">👑</span>1000001</span></td>
             <td class="prize first-prize">200,000 LKR</td>
             <td class="city">Colombo</td>
           </tr>
-          <tr class="winner-row">
+          <tr class="winner-row" data-ticket="1000002">
             <td class="rank-number"><p>2<sup>nd</sup> Prize</p></td>
             <td><span class="winning-number"><span class="trophy-icon"></span>1000002</span></td>
             <td class="prize">100,000 LKR</td>
             <td class="city">Galle</td>
           </tr>
-          <tr class="winner-row">
+          <tr class="winner-row" data-ticket="1000003">
             <td class="rank-number"><p>3<sup>rd</sup> Prize</p></td>
             <td><span class="winning-number"><span class="trophy-icon"></span>1000003</span></td>
             <td class="prize">75,000 LKR</td>
             <td class="city">Kurunegala</td>
           </tr>
-          <tr class="winner-row">
+          <tr class="winner-row" data-ticket="1000004">
             <td class="rank-number"><p>4<sup>th</sup> Prize</p></td>
             <td><span class="winning-number"><span class="trophy-icon"></span>1000004</span></td>
             <td class="prize">50,000 LKR</td>
             <td class="city">Jaffna</td>
           </tr>
-          <tr class="winner-row">
+          <tr class="winner-row" data-ticket="1000005">
             <td class="rank-number"><p>5<sup>th</sup> Prize</p></td>
             <td><span class="winning-number"><span class="trophy-icon"></span>1000005</span></td>
             <td class="prize">25,000 LKR</td>
@@ -683,7 +786,7 @@
       </div>
     </div>
 
-    <!-- Sanasili Table -->
+    <!-- Sanasili Table (with data-ticket added) -->
     <div class="table-container">
       <table class="sanasili-table">
         <thead>
@@ -694,19 +797,156 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td class="rank-number">1</td><td><span class="sanasili-number">304050</span></td><td class="city">Kandy</td></tr>
-          <tr><td class="rank-number">2</td><td><span class="sanasili-number">202020</span></td><td class="city">Matara</td></tr>
-          <tr><td class="rank-number">3</td><td><span class="sanasili-number">303030</span></td><td class="city">Negombo</td></tr>
-          <tr><td class="rank-number">4</td><td><span class="sanasili-number">404040</span></td><td class="city">Trinco</td></tr>
-          <tr><td class="rank-number">5</td><td><span class="sanasili-number">505050</span></td><td class="city">Ratnapura</td></tr>
-          <tr><td class="rank-number">6</td><td><span class="sanasili-number">606060</span></td><td class="city">Gampaha</td></tr>
-          <tr><td class="rank-number">7</td><td><span class="sanasili-number">707070</span></td><td class="city">Badulla</td></tr>
-          <tr><td class="rank-number">8</td><td><span class="sanasili-number">808080</span></td><td class="city">Monaragala</td></tr>
-          <tr><td class="rank-number">9</td><td><span class="sanasili-number">909090</span></td><td class="city">Polonnaruwa</td></tr>
-          <tr><td class="rank-number">10</td><td><span class="sanasili-number">902233</span></td><td class="city">Hambantota</td></tr>
+          <tr data-ticket="304050"><td class="rank-number">1</td><td><span class="sanasili-number">304050</span></td><td class="city">Kandy</td></tr>
+          <tr data-ticket="202020"><td class="rank-number">2</td><td><span class="sanasili-number">202020</span></td><td class="city">Matara</td></tr>
+          <tr data-ticket="303030"><td class="rank-number">3</td><td><span class="sanasili-number">303030</span></td><td class="city">Negombo</td></tr>
+          <tr data-ticket="404040"><td class="rank-number">4</td><td><span class="sanasili-number">404040</span></td><td class="city">Trinco</td></tr>
+          <tr data-ticket="505050"><td class="rank-number">5</td><td><span class="sanasili-number">505050</span></td><td class="city">Ratnapura</td></tr>
+          <tr data-ticket="606060"><td class="rank-number">6</td><td><span class="sanasili-number">606060</span></td><td class="city">Gampaha</td></tr>
+          <tr data-ticket="707070"><td class="rank-number">7</td><td><span class="sanasili-number">707070</span></td><td class="city">Badulla</td></tr>
+          <tr data-ticket="808080"><td class="rank-number">8</td><td><span class="sanasili-number">808080</span></td><td class="city">Monaragala</td></tr>
+          <tr data-ticket="909090"><td class="rank-number">9</td><td><span class="sanasili-number">909090</span></td><td class="city">Polonnaruwa</td></tr>
+          <tr data-ticket="902233"><td class="rank-number">10</td><td><span class="sanasili-number">902233</span></td><td class="city">Hambantota</td></tr>
         </tbody>
       </table>
     </div>
   </div>
+
+  <!-- Modal for QR scan result -->
+  <div id="resultModal" class="modal-overlay">
+    <div class="modal-content" id="modalContent">
+      <span class="modal-close" id="closeModal">&times;</span>
+      <div class="modal-icon" id="modalIcon">🎫</div>
+      <div class="modal-title" id="modalTitle">Ticket Check</div>
+      <div class="modal-ticket" id="modalTicketNumber">---</div>
+      <div id="modalPrizeSection">
+        <div class="modal-prize" id="modalPrize"></div>
+        <div class="modal-seller" id="modalSeller"></div>
+      </div>
+      <div class="modal-message" id="modalMessage"></div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Parse query parameter 'ticket'
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      // Build winners map from table rows (using data-ticket attributes)
+      function buildWinnersMap() {
+        const winners = new Map(); // key: ticket number (string), value: { type, prize, seller, rank? }
+        
+        // Winners table rows
+        const winnerRows = document.querySelectorAll('.winners-table tbody tr');
+        winnerRows.forEach(row => {
+          const ticket = row.getAttribute('data-ticket');
+          if (!ticket) return;
+          const rankElem = row.querySelector('.rank-number p') || row.querySelector('.rank-number');
+          const rank = rankElem ? rankElem.innerText.trim() : '';
+          const prizeElem = row.querySelector('.prize');
+          const prize = prizeElem ? prizeElem.innerText.trim() : '';
+          const cityElem = row.querySelector('.city');
+          const city = cityElem ? cityElem.innerText.trim() : '';
+          winners.set(ticket, { type: 'winner', rank, prize, seller: city }); // using city as seller for consistency
+        });
+
+        // Consolation table rows
+        const consRows = document.querySelectorAll('.sanasili-table tbody tr');
+        consRows.forEach(row => {
+          const ticket = row.getAttribute('data-ticket');
+          if (!ticket) return;
+          const rank = row.querySelector('.rank-number')?.innerText.trim() || '';
+          const city = row.querySelector('.city')?.innerText.trim() || '';
+          winners.set(ticket, { type: 'consolation', rank, prize: '10,000 LKR', seller: city });
+        });
+
+        return winners;
+      }
+
+      // Show modal with result
+      function showResultModal(ticketNumber, winnerInfo) {
+        const modal = document.getElementById('resultModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalTicket = document.getElementById('modalTicketNumber');
+        const modalPrize = document.getElementById('modalPrize');
+        const modalSeller = document.getElementById('modalSeller');
+        const modalMessage = document.getElementById('modalMessage');
+        const prizeSection = document.getElementById('modalPrizeSection');
+
+        modalTicket.innerText = ticketNumber;
+
+        if (winnerInfo) {
+          // Winner
+          modalContent.classList.remove('loser-modal');
+          modalContent.classList.add('winner-modal');
+          modalIcon.innerText = winnerInfo.type === 'winner' ? '🏆' : '🎉';
+          modalTitle.innerText = winnerInfo.type === 'winner' ? 'ජයග්‍රාහකයා! Winner!' : 'සැනසිලි ත්‍යාගය! Consolation!';
+          modalPrize.innerText = winnerInfo.prize;
+          modalSeller.innerText = `City: ${winnerInfo.seller}`;
+          if (winnerInfo.rank) {
+            modalMessage.innerText = `${winnerInfo.rank} – විශිෂ්ටයි! Congratulations!`;
+          } else {
+            modalMessage.innerText = 'සුභ පැතුම්! Congratulations!';
+          }
+          prizeSection.style.display = 'block';
+
+          // Highlight the winning row in the table
+          const allRows = document.querySelectorAll(`tr[data-ticket="${ticketNumber}"]`);
+          allRows.forEach(row => row.classList.add('highlight-row'));
+        } else {
+          // Not a winner
+          modalContent.classList.remove('winner-modal');
+          modalContent.classList.add('loser-modal');
+          modalIcon.innerText = '😞';
+          modalTitle.innerText = 'වාසනාව නැත';
+          modalPrize.innerText = '';
+          modalSeller.innerText = '';
+          modalMessage.innerText = 'මෙවර ජයග්‍රහණය නොලැබුණි. ඊළඟ වතාවේ වාසනාව උදාවේවා! \n Not a winner this time. Better luck next time!';
+          prizeSection.style.display = 'none';
+        }
+
+        modal.style.display = 'flex';
+      }
+
+      // Close modal function
+      function closeModal() {
+        document.getElementById('resultModal').style.display = 'none';
+        // Remove highlights
+        document.querySelectorAll('.highlight-row').forEach(r => r.classList.remove('highlight-row'));
+      }
+
+      // Execute after DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        const ticket = getQueryParam('ticket');
+        if (!ticket) return; // No ticket parameter, do nothing
+
+        const winnersMap = buildWinnersMap();
+        const info = winnersMap.get(ticket) || null;
+        
+        // Slight delay to ensure smooth rendering
+        setTimeout(() => {
+          showResultModal(ticket, info);
+        }, 100);
+
+        // Close modal events
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        window.addEventListener('click', function(e) {
+          if (e.target === document.getElementById('resultModal')) {
+            closeModal();
+          }
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeModal();
+          }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
