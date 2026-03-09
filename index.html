@@ -1,217 +1,105 @@
-<!doctype html>
-<html lang="si">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Souvenir Flipbook — Sample</title>
+  <meta charset="UTF-8">
+  <title>My Souvenir Flipbook</title>
   <style>
-    /* Simple flipbook viewer — no external libs. A4 portrait preview for web. */
-    :root{--page-width:800px;--page-height:1131px} /* scaled A4 (approx) */
-    body{font-family:system-ui,Segoe UI,Roboto,'Noto Sans Sinhala',sans-serif;background:#f2f4f7;color:#111;margin:0;padding:20px;display:flex;flex-direction:column;align-items:center;gap:18px}
-    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    button,select,input[type=file]{padding:8px 12px;border-radius:6px;border:1px solid #cfcfd4;background:#fff}
-
-    .book-wrap{display:flex;gap:18px;align-items:center}
-    .book{width:calc(var(--page-width)*0.9);max-width:95vw;box-shadow:0 10px 30px rgba(0,0,0,.08);background:#fff;padding:12px;border-radius:6px}
-    .page-view{width:var(--page-width);height:var(--page-height);background:#fff;border:1px solid #e5e7eb;display:flex;flex-direction:column;overflow:hidden}
-
-    .page-inner{flex:1;display:flex;align-items:center;justify-content:center;padding:24px}
-    .page-inner img{max-width:100%;max-height:100%;object-fit:contain;display:block}
-
-    .pager{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-top:1px solid #f0f0f0;background:#fbfbfb}
-    .page-info{font-size:14px;color:#444}
-
-    /* Two-page spread (for double-side visual) */
-    .spread{display:flex;gap:12px}
-    .spread .page-view{width:calc(var(--page-width)/2)}
-
-    .hint{font-size:13px;color:#666}
-    footer{font-size:13px;color:#666;margin-top:6px}
-
-    @media (max-width:900px){:root{--page-width:360px;--page-height:510px}}
+    body {
+      margin: 0;
+      background: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #flipbook {
+      width: 800px;
+      height: 600px;
+      touch-action: none;
+    }
+    #flipbook .page {
+      width: 400px;
+      height: 600px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      cursor: grab;
+      user-select: none;
+    }
+    #flipbook .page img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+    .controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 1000;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #444;
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
-  <h2>Souvenir Flipbook — Sample (A4 Portrait preview)</h2>
+
+  <!-- Flipbook container -->
+  <div id="flipbook">
+    <div class="page"><img src="images/page1.jpg" alt="Page 1"></div>
+    <div class="page"><img src="images/page2.jpg" alt="Page 2"></div>
+    <div class="page"><img src="images/page3.jpg" alt="Page 3"></div>
+    <div class="page"><img src="images/page4.jpg" alt="Page 4"></div>
+  </div>
+
+  <!-- Controls -->
   <div class="controls">
-    <input id="fileinput" type="file" accept="image/*" multiple>
-    <button id="addPlaceholders">Add 4 placeholder pages</button>
-    <label style="display:flex;align-items:center;gap:6px"><input id="twoPage" type="checkbox"> Double-side spread view</label>
-    <button id="prev">◀ Prev</button>
-    <button id="next">Next ▶</button>
-    <label class="hint">Scale for web preview: A4 ~ 800×1131 px</label>
+    <button onclick="$('#flipbook').turn('previous')">◀ Prev</button>
+    <button onclick="$('#flipbook').turn('next')">Next ▶</button>
   </div>
 
-  <div class="book-wrap">
-    <div class="book">
-      <div id="viewer" class="page-view">
-        <div class="page-inner" id="pageInner">
-          <!-- image injected here -->
-        </div>
-        <div class="pager">
-          <div class="page-info" id="pageInfo">Page 0 / 0</div>
-          <div class="hint">Use the file chooser to add images to pages, or click "Add placeholders".</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Flip sound -->
+  <audio id="flipSound" src="flip.mp3" preload="auto"></audio>
 
-  <footer>Instructions: Upload images (JPG/PNG). Each uploaded file becomes one page (portrait recommended). Use the <strong>Double-side</strong> checkbox to preview as two-page spread.</footer>
+  <!-- jQuery + Turn.js -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="js/turn.min.js"></script>
 
-<script>
-  // Initial empty pages
-  let pages = []; // each item: {name, url}
-  let currentIndex = 0;
-
-  const fileInput = document.getElementById('fileinput');
-  const pageInner = document.getElementById('pageInner');
-  const pageInfo = document.getElementById('pageInfo');
-  const prevBtn = document.getElementById('prev');
-  const nextBtn = document.getElementById('next');
-  const addPlaceholdersBtn = document.getElementById('addPlaceholders');
-  const twoPageCheckbox = document.getElementById('twoPage');
-  const viewer = document.getElementById('viewer');
-
-  function render() {
-    pageInner.innerHTML = '';
-    const total = pages.length;
-    if (total === 0) {
-      pageInfo.textContent = 'No pages — upload images.';
-      const t = document.createElement('div');
-      t.style.textAlign = 'center';
-      t.style.color = '#888';
-      t.innerHTML = '<div style="font-size:18px;margin-bottom:6px">Blank Page</div><div style="font-size:13px">Upload images using the chooser (each file = 1 page).</div>';
-      pageInner.appendChild(t);
-      return;
-    }
-
-    // Double-page spread: show currentIndex and currentIndex+1
-    if (twoPageCheckbox.checked) {
-      // create spread container
-      const spread = document.createElement('div');
-      spread.className = 'spread';
-      // left page
-      const left = document.createElement('div');
-      left.className = 'page-view';
-      left.style.width = '50%';
-      left.style.height = '100%';
-      const leftInner = document.createElement('div');
-      leftInner.className = 'page-inner';
-      if (pages[currentIndex]) {
-        const img = document.createElement('img'); img.src = pages[currentIndex].url; img.alt = pages[currentIndex].name; leftInner.appendChild(img);
-      } else {
-        leftInner.innerHTML = '<div style="color:#999">(Blank)</div>';
+  <script>
+    // Initialize flipbook with interactive mouse drag
+    $('#flipbook').turn({
+      width: 800,
+      height: 600,
+      autoCenter: true,
+      display: 'double',
+      gradients: true,
+      acceleration: true,
+      elevation: 50,   // 👈 corner lift height
+      duration: 1000,  // 👈 smooth animation time
+      when: {
+        turning: function(event, page, view) {
+          document.getElementById('flipSound').play();
+        }
       }
-      left.appendChild(leftInner);
-
-      // right page
-      const right = document.createElement('div');
-      right.className = 'page-view';
-      right.style.width = '50%';
-      right.style.height = '100%';
-      const rightInner = document.createElement('div');
-      rightInner.className = 'page-inner';
-      if (pages[currentIndex+1]) {
-        const img2 = document.createElement('img'); img2.src = pages[currentIndex+1].url; img2.alt = pages[currentIndex+1].name; rightInner.appendChild(img2);
-      } else {
-        rightInner.innerHTML = '<div style="color:#999">(Blank)</div>';
-      }
-      right.appendChild(rightInner);
-
-      spread.appendChild(left);
-      spread.appendChild(right);
-      pageInner.appendChild(spread);
-      pageInfo.textContent = `Spread: ${currentIndex+1} - ${Math.min(currentIndex+2, total)} / ${total}`;
-      return;
-    }
-
-    // Single page view
-    const item = pages[currentIndex];
-    if (item) {
-      const img = document.createElement('img');
-      img.src = item.url;
-      img.alt = item.name;
-      pageInner.appendChild(img);
-      pageInfo.textContent = `Page ${currentIndex+1} / ${total}`;
-    }
-  }
-
-  // handle file input (multiple images)
-  fileInput.addEventListener('change', e => {
-    const files = Array.from(e.target.files);
-    // optionally sort by name
-    files.sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric:true}));
-
-    files.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = ev => {
-        pages.push({name: file.name, url: ev.target.result});
-        // if first file added, set current index to 0
-        if (pages.length === 1) currentIndex = 0;
-        render();
-      };
-      reader.readAsDataURL(file);
     });
-  });
 
-  prevBtn.addEventListener('click', ()=>{
-    if (twoPageCheckbox.checked) {
-      currentIndex = Math.max(0, currentIndex - 2);
-    } else {
-      currentIndex = Math.max(0, currentIndex - 1);
-    }
-    render();
-  });
-  nextBtn.addEventListener('click', ()=>{
-    if (twoPageCheckbox.checked) {
-      currentIndex = Math.min(pages.length - 1, currentIndex + 2);
-    } else {
-      currentIndex = Math.min(pages.length - 1, currentIndex + 1);
-    }
-    render();
-  });
-
-  addPlaceholdersBtn.addEventListener('click', ()=>{
-    // add 4 light placeholders
-    for (let i=0;i<4;i++){
-      const svg = `data:image/svg+xml;utf8,` + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='1131'><rect width='100%' height='100%' fill='%23f8f6f0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='36' fill='%23999'>Placeholder Page ${pages.length+1}</text></svg>`);
-      pages.push({name:`placeholder-${pages.length+1}.svg`, url: svg});
-    }
-    render();
-  });
-
-  twoPageCheckbox.addEventListener('change', ()=>{
-    // if switching to spread mode and currentIndex is odd, make it even (spread start)
-    if (twoPageCheckbox.checked && (currentIndex % 2 === 1)) currentIndex = Math.max(0, currentIndex-1);
-    render();
-  });
-
-  // allow keyboard navigation
-  window.addEventListener('keydown', (e)=>{
-    if (e.key === 'ArrowRight') nextBtn.click();
-    if (e.key === 'ArrowLeft') prevBtn.click();
-  });
-
-  // initial render
-  render();
-
-  // Optional: function to pre-load images from a named list in the HTML for static embedding.
-  // Example: add an array like const initialImages = ['images/01.jpg','images/02.jpg']; and call loadStatic(initialImages)
-  function loadStatic(list){
-    list.forEach(url=>{
-      // small helper to fetch as blob then to dataURL if needed; for simplicity we'll create Image element
-      const img = new Image(); img.crossOrigin = 'anonymous'; img.onload = ()=>{
-        // convert to canvas dataURL to avoid CORS issues when loading local files — skip here, just push url
-        pages.push({name:url, url:url});
-        render();
-      };
-      img.onerror = ()=>{console.warn('Could not load', url);};
-      img.src = url;
+    // Add mouse cursor change when dragging
+    $('#flipbook').on('start', function(e){
+      $(this).css('cursor', 'grabbing');
+    }).on('end', function(e){
+      $(this).css('cursor', 'grab');
     });
-  }
-
-  // If you want to predefine static image list, uncomment and edit below:
-  // loadStatic(['images/01.jpg','images/02.jpg','images/03.jpg']);
-</script>
+  </script>
 </body>
 </html>
