@@ -1,1396 +1,217 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="si">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Raffle Draw Results - DLB Welfare Society</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Souvenir Flipbook — Sample</title>
   <style>
-    :root {
-      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --gold-gradient: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
-      --winner-gradient: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 100%);
-      --sanasili-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      --shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #05997e 0%, #0600ab 100%);
-      min-height: 100vh;
-      padding: 15px 10px;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    /* Header Styles */
-    .header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 15px;
-      margin-bottom: 20px;
-    }
-    
-    .logo-section, .ticket-section {
-      flex: 0 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .title-section {
-      flex: 1;
-      text-align: center;
-    }
-    
-    .logo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .logo-img {
-      width: auto;
-      height: 180px;
-      max-width: 100%;
-      object-fit: contain;
-      transition: all 0.3s ease;
-    }
-    
-    .ticket {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .ticket-img {
-      width: auto;
-      height: 120px;
-      max-width: 100%;
-      object-fit: contain;
-      transition: all 0.3s ease;
-    }
-    
-    .header h1 {
-      color: white;
-      font-size: 2.5rem;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 5px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-    
-    .organization {
-      color: #FFD700;
-      font-size: 1.8rem;
-      font-weight: 600;
-      font-family: 'Georgia', serif;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-    }
-    
-    /* Section Titles */
-    .section-title {
-      color: white;
-      font-size: 2rem;
-      font-weight: 600;
-      margin: 25px 0 15px;
-      text-align: center;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    
-    .trophy-section {
-      font-size: 2.5rem;
-    }
-    
-    .text-section {
-      text-align: center;
-    }
-    
-    .text-section div:first-child {
-      font-size: 1.8rem;
-      color: #FFD700;
-    }
-    
-    .text-section div:last-child {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
-    
-    /* Table Styles */
-    .table-container {
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      margin-bottom: 30px;
-      position: relative;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    .table-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--primary-gradient);
-      z-index: 1;
-    }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 300px;
-    }
-    
-    .winners-table thead {
-      background: var(--gold-gradient);
-    }
-    
-    .sanasili-table thead {
-      background: var(--sanasili-gradient);
-    }
-    
-    thead th {
-      text-align: left;
-      padding: 15px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: white;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-      white-space: nowrap;
-    }
-    
-    tbody tr {
-      transition: all 0.3s ease;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    
-    tbody tr:last-child {
-      border-bottom: none;
-    }
-    
-    tbody td {
-      padding: 15px;
-      font-size: 1rem;
-      color: #2d3748;
-      vertical-align: middle;
-    }
-    
-    .rank-number {
-      font-weight: 600;
-      color: #667eea;
-      white-space: nowrap;
-    }
-    
-    .rank-number p {
-      margin: 0;
-      font-size: 1rem;
-    }
-    
-    .winning-number {
-      display: inline-flex;
-      align-items: center;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 1.8rem;
-      color: white;
-      background: var(--winner-gradient);
-      box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-      position: relative;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    
-    .sanasili-number {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 15px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1.4rem;
-      color: white;
-      background: var(--sanasili-gradient);
-      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-      white-space: nowrap;
-    }
-    
-    .prize {
-      font-weight: 600;
-      color: #059669;
-      white-space: nowrap;
-    }
-    
-    .first-prize {
-      color: #dc2626;
-      font-weight: 700;
-    }
-    
-    .seller-name {
-      font-weight: 500;
-      color: #4a5568;
-      white-space: nowrap;
-    }
-    
-    .trophy-icon {
-      margin-right: 8px;
-      font-size: 1.5rem;
-    }
-    
-    .winner-row:first-child {
-      background: linear-gradient(90deg, #fef7cd, #fcd34d);
-    }
-    
-    .winner-row:first-child .winning-number {
-      background: linear-gradient(135deg, #dc2626 0%, #fbbf24 100%);
-      font-size: 2rem;
-    }
-    
-    /* Desktop Styles */
-    @media (min-width: 1024px) {
-      .logo-img {
-        height: 250px;
-      }
-      
-      .ticket-img {
-        height: 160px;
-      }
-      
-      .header h1 {
-        font-size: 3.5rem;
-      }
-      
-      .organization {
-        font-size: 2.5rem;
-      }
-      
-      thead th {
-        font-size: 1.8rem;
-        padding: 20px;
-      }
-      
-      tbody td {
-        padding: 22px 20px;
-        font-size: 1.2rem;
-      }
-      
-      .winning-number {
-        font-size: 3rem;
-        padding: 20px 30px;
-      }
-      
-      .sanasili-number {
-        font-size: 2.2rem;
-        padding: 15px 25px;
-      }
-    }
-    
-    /* Tablet Styles */
-    @media (min-width: 769px) and (max-width: 1023px) {
-      .logo-img {
-        height: 150px;
-      }
-      
-      .ticket-img {
-        height: 100px;
-      }
-      
-      .header h1 {
-        font-size: 2.5rem;
-      }
-      
-      .organization {
-        font-size: 1.8rem;
-      }
-      
-      thead th {
-        font-size: 1.3rem;
-        padding: 15px;
-      }
-      
-      .winning-number {
-        font-size: 2rem;
-        padding: 15px 20px;
-      }
-      
-      .sanasili-number {
-        font-size: 1.6rem;
-        padding: 10px 15px;
-      }
-    }
-    
-    /* Mobile Styles */
-    @media (max-width: 768px) {
-      body {
-        padding: 10px 8px;
-      }
-      
-      .header-content {
-        flex-direction: column;
-        padding: 12px;
-        gap: 10px;
-      }
-      
-      .logo-img {
-        height: 80px;
-      }
-      
-      .ticket-img {
-        height: 60px;
-      }
-      
-      .header h1 {
-        font-size: 1.8rem;
-      }
-      
-      .organization {
-        font-size: 1.3rem;
-      }
-      
-      .section-title {
-        font-size: 1.5rem;
-        margin: 20px 0 12px;
-        gap: 8px;
-      }
-      
-      .trophy-section {
-        font-size: 2rem;
-      }
-      
-      .text-section div:first-child {
-        font-size: 1.3rem;
-      }
-      
-      .text-section div:last-child {
-        font-size: 1rem;
-      }
-      
-      .table-container {
-        border-radius: 15px;
-        margin-bottom: 20px;
-      }
-      
-      thead th {
-        padding: 12px 8px;
-        font-size: 1rem;
-      }
-      
-      tbody td {
-        padding: 12px 8px;
-        font-size: 0.9rem;
-      }
-      
-      .rank-number {
-        font-size: 0.9rem;
-      }
-      
-      .rank-number p {
-        font-size: 0.9rem;
-      }
-      
-      .winning-number {
-        padding: 8px 12px;
-        font-size: 1.3rem;
-        border-radius: 8px;
-      }
-      
-      .winner-row:first-child .winning-number {
-        font-size: 1.4rem;
-        padding: 9px 14px;
-      }
-      
-      .sanasili-number {
-        padding: 6px 10px;
-        font-size: 1.1rem;
-        border-radius: 6px;
-      }
-      
-      .prize {
-        font-size: 0.9rem;
-      }
-      
-      .first-prize {
-        font-size: 1rem;
-      }
-      
-      .seller-name {
-        font-size: 0.9rem;
-      }
-      
-      .trophy-icon {
-        font-size: 1.2rem;
-        margin-right: 5px;
-      }
-    }
-    
-    /* Small Mobile Styles */
-    @media (max-width: 480px) {
-      .logo-img {
-        height: 60px;
-      }
-      
-      .ticket-img {
-        height: 45px;
-      }
-      
-      .header h1 {
-        font-size: 1.4rem;
-      }
-      
-      .organization {
-        font-size: 1.1rem;
-      }
-      
-      .section-title {
-        font-size: 1.2rem;
-        margin: 15px 0 10px;
-      }
-      
-      .trophy-section {
-        font-size: 1.6rem;
-      }
-      
-      .text-section div:first-child {
-        font-size: 1.1rem;
-      }
-      
-      .text-section div:last-child {
-        font-size: 0.85rem;
-      }
-      
-      thead th {
-        padding: 10px 6px;
-        font-size: 0.85rem;
-      }
-      
-      tbody td {
-        padding: 10px 6px;
-        font-size: 0.8rem;
-      }
-      
-      .rank-number {
-        font-size: 0.8rem;
-      }
-      
-      .rank-number p {
-        font-size: 0.8rem;
-      }
-      
-      .winning-number {
-        padding: 6px 10px;
-        font-size: 1.1rem;
-      }
-      
-      .winner-row:first-child .winning-number {
-        font-size: 1.2rem;
-        padding: 7px 12px;
-      }
-      
-      .sanasili-number {
-        padding: 5px 8px;
-        font-size: 0.95rem;
-      }
-      
-      .prize {
-        font-size: 0.8rem;
-      }
-      
-      .first-prize {
-        font-size: 0.9rem;
-      }
-      
-      .seller-name {
-        font-size: 0.8rem;
-      }
-      
-      .trophy-icon {
-        font-size: 1rem;
-        margin-right: 4px;
-      }
-    }
-    
-    /* Extra Small Mobile Styles */
-    @media (max-width: 360px) {
-      .logo-img {
-        height: 50px;
-      }
-      
-      .ticket-img {
-        height: 35px;
-      }
-      
-      .header h1 {
-        font-size: 1.2rem;
-      }
-      
-      .organization {
-        font-size: 1rem;
-      }
-      
-      .section-title {
-        font-size: 1rem;
-      }
-      
-      .trophy-section {
-        font-size: 1.3rem;
-      }
-      
-      .text-section div:first-child {
-        font-size: 0.95rem;
-      }
-      
-      .text-section div:last-child {
-        font-size: 0.75rem;
-      }
-      
-      thead th {
-        padding: 8px 4px;
-        font-size: 0.75rem;
-      }
-      
-      tbody td {
-        padding: 8px 4px;
-        font-size: 0.7rem;
-      }
-      
-      .winning-number {
-        padding: 5px 8px;
-        font-size: 0.95rem;
-      }
-      
-      .winner-row:first-child .winning-number {
-        font-size: 1rem;
-        padding: 6px 10px;
-      }
-      
-      .sanasili-number {
-        padding: 4px 6px;
-        font-size: 0.85rem;
-      }
-      
-      .prize, .seller-name, .rank-number {
-        font-size: 0.7rem;
-      }
-      
-      .first-prize {
-        font-size: 0.8rem;
-      }
-      
-      .trophy-icon {
-        font-size: 0.9rem;
-        margin-right: 3px;
-      }
-    }
-    
-    /* Landscape Mode */
-    @media (max-width: 768px) and (orientation: landscape) {
-      .header-content {
-        flex-direction: row;
-      }
-      
-      .logo-img {
-        height: 50px;
-      }
-      
-      .ticket-img {
-        height: 40px;
-      }
-      
-      .header h1 {
-        font-size: 1.3rem;
-      }
-      
-      .organization {
-        font-size: 1rem;
-      }
-      
-      .table-container {
-        max-height: 300px;
-        overflow-y: auto;
-      }
-    }
-    
-    /* Touch-friendly hover effects */
-    @media (hover: hover) {
-      tbody tr:hover {
-        background: linear-gradient(90deg, #f8fafc, #e2e8f0);
-      }
-      
-      .logo-img:hover,
-      .ticket-img:hover {
-        transform: scale(1.1);
-      }
-    }
-    
-    /* Animations */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(1); }
-    }
-    
-    .winner-row:first-child .winning-number {
-      animation: pulse 2s infinite;
-    }
-    
-    /* ========== MODAL STYLES ========== */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.7);
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      backdrop-filter: blur(5px);
-    }
-    
-    .modal-content {
-      background: white;
-      max-width: 450px;
-      width: 90%;
-      border-radius: 30px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      position: relative;
-      animation: modalFadeIn 0.4s;
-      border: 4px solid #ccc;
-    }
-    
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    
-    .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      color: #aaa;
-      cursor: pointer;
-      transition: color 0.2s;
-      line-height: 1;
-      z-index: 10;
-    }
-    
-    .modal-close:hover {
-      color: #333;
-    }
-    
-    .modal-icon {
-      font-size: 70px;
-      margin-bottom: 10px;
-    }
-    
-    .modal-title {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: #2d3748;
-    }
-    
-    .modal-ticket {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: #2d3748;
-      background: #f7fafc;
-      display: inline-block;
-      padding: 12px 30px;
-      border-radius: 60px;
-      margin: 10px 0 15px;
-      letter-spacing: 2px;
-      border: 3px dashed #667eea;
-    }
-    
-    .modal-prize {
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 10px 0 5px;
-    }
-    
-    .modal-seller {
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: #4a5568;
-      margin: 5px 0 10px;
-      background: #edf2f7;
-      padding: 8px 20px;
-      border-radius: 40px;
-      display: inline-block;
-    }
-    
-    .modal-message {
-      font-size: 1.2rem;
-      color: #718096;
-      margin-top: 15px;
-      padding-top: 15px;
-      border-top: 1px solid #e2e8f0;
-    }
-    
-    /* ========== 1st PRIZE MODAL - GOLD THEME ========== */
-    .first-prize-modal {
-      background: linear-gradient(135deg, #f5f0e0 0%, #fff5d6 100%);
-      border: 8px solid #D4AF37;
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4), 0 0 0 2px #f1e6b0 inset;
-      position: relative;
-      padding: 35px 20px;
-    }
-    
-    .first-prize-modal .modal-icon {
-      font-size: 100px;
-      line-height: 1;
-      margin-bottom: 5px;
-      filter: drop-shadow(0 8px 12px rgba(212, 175, 55, 0.6));
-      animation: crownGlow 2s ease-in-out infinite alternate;
-    }
-    
-    @keyframes crownGlow {
-      from { transform: scale(1); text-shadow: 0 0 10px gold; }
-      to { transform: scale(1.05); text-shadow: 0 0 25px #ffaa00; }
-    }
-    
-    .first-prize-modal .modal-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #8B6911, #D4AF37, #8B6911);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 5px;
-      letter-spacing: 2px;
-    }
-    
-    .first-prize-modal .modal-ticket {
-      background: linear-gradient(145deg, #D4AF37, #f5e6b0);
-      color: #2d1f00;
-      border: 3px solid #8B6911;
-      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
-      font-weight: 900;
-      font-size: 2.8rem;
-      padding: 12px 35px;
-    }
-    
-    .first-prize-modal .modal-prize {
-      color: #8B6911;
-      font-weight: 800;
-      text-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
-      background: rgba(255, 255, 255, 0.7);
-      display: inline-block;
-      padding: 8px 25px;
-      border-radius: 50px;
-      margin: 10px 0;
-      animation: prizeZoom 1.2s ease-in-out 3;
-    }
-    
-    .first-prize-modal .modal-seller {
-      background: #D4AF37;
-      color: #1e1e1e;
-      font-weight: 600;
-      font-size: 1.4rem;
-      padding: 10px 30px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      border: 2px solid #8B6911;
-    }
-    
-    .first-prize-modal .modal-message {
-      font-size: 1.4rem;
-      font-weight: 700;
-      background: linear-gradient(145deg, #fcf3cf, #fae6b3);
-      color: #744e0e;
-      padding: 15px 20px;
-      border-radius: 60px;
-      border: 2px solid #D4AF37;
-      margin-top: 20px;
-      box-shadow: 0 5px 0 #8B6911;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    /* ========== 2nd PRIZE MODAL - SILVER THEME ========== */
-    .second-prize-modal {
-      background: linear-gradient(135deg, #f0f4f8 0%, #e6eaef 100%);
-      border: 8px solid #9aa9b9;
-      box-shadow: 0 20px 40px rgba(154, 169, 185, 0.4);
-      padding: 35px 20px;
-    }
-    
-    .second-prize-modal .modal-icon {
-      font-size: 90px;
-      filter: drop-shadow(0 8px 12px rgba(154, 169, 185, 0.6));
-    }
-    
-    .second-prize-modal .modal-title {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: #4a5568;
-      letter-spacing: 1px;
-    }
-    
-    .second-prize-modal .modal-ticket {
-      background: #cbd5e0;
-      color: #2d3748;
-      border: 3px solid #718096;
-    }
-    
-    .second-prize-modal .modal-prize {
-      color: #4a5568;
-      font-weight: 800;
-      background: rgba(255, 255, 255, 0.7);
-      display: inline-block;
-      padding: 8px 25px;
-      border-radius: 50px;
-      margin: 10px 0;
-      animation: prizeZoom 1.2s ease-in-out 3;
-    }
-    
-    .second-prize-modal .modal-seller {
-      background: #9aa9b9;
-      color: white;
-      font-weight: 600;
-      border: 2px solid #4a5568;
-    }
-    
-    .second-prize-modal .modal-message {
-      background: #e2e8f0;
-      color: #2d3748;
-      padding: 15px 20px;
-      border-radius: 60px;
-      border: 2px solid #9aa9b9;
-    }
-    
-    /* ========== 3rd PRIZE MODAL - BRONZE THEME ========== */
-    .third-prize-modal {
-      background: linear-gradient(135deg, #faf0e6 0%, #f5e0cc 100%);
-      border: 8px solid #b87333;
-      box-shadow: 0 20px 40px rgba(184, 115, 51, 0.4);
-      padding: 35px 20px;
-    }
-    
-    .third-prize-modal .modal-icon {
-      font-size: 90px;
-      filter: drop-shadow(0 8px 12px rgba(184, 115, 51, 0.6));
-    }
-    
-    .third-prize-modal .modal-title {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: #8b5a2b;
-      letter-spacing: 1px;
-    }
-    
-    .third-prize-modal .modal-ticket {
-      background: #e6c9a8;
-      color: #5a3e1b;
-      border: 3px solid #b87333;
-    }
-    
-    .third-prize-modal .modal-prize {
-      color: #b87333;
-      font-weight: 800;
-      background: rgba(255, 255, 255, 0.7);
-      display: inline-block;
-      padding: 8px 25px;
-      border-radius: 50px;
-      margin: 10px 0;
-      animation: prizeZoom 1.2s ease-in-out 3;
-    }
-    
-    .third-prize-modal .modal-seller {
-      background: #b87333;
-      color: white;
-      font-weight: 600;
-      border: 2px solid #8b5a2b;
-    }
-    
-    .third-prize-modal .modal-message {
-      background: #f5e0cc;
-      color: #8b5a2b;
-      padding: 15px 20px;
-      border-radius: 60px;
-      border: 2px solid #b87333;
-    }
-    
-    /* ========== 4th PRIZE MODAL - BLUE THEME ========== */
-    .fourth-prize-modal {
-      background: linear-gradient(135deg, #e6f0fa 0%, #cce1f5 100%);
-      border: 8px solid #3182ce;
-      box-shadow: 0 20px 40px rgba(49, 130, 206, 0.4);
-      padding: 35px 20px;
-    }
-    
-    .fourth-prize-modal .modal-icon {
-      font-size: 90px;
-      filter: drop-shadow(0 8px 12px rgba(49, 130, 206, 0.6));
-    }
-    
-    .fourth-prize-modal .modal-title {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: #2b6cb0;
-      letter-spacing: 1px;
-    }
-    
-    .fourth-prize-modal .modal-ticket {
-      background: #bee3f8;
-      color: #1e4e8c;
-      border: 3px solid #3182ce;
-    }
-    
-    .fourth-prize-modal .modal-prize {
-      color: #2b6cb0;
-      font-weight: 800;
-      background: rgba(255, 255, 255, 0.7);
-      display: inline-block;
-      padding: 8px 25px;
-      border-radius: 50px;
-      margin: 10px 0;
-      animation: prizeZoom 1.2s ease-in-out 3;
-    }
-    
-    .fourth-prize-modal .modal-seller {
-      background: #3182ce;
-      color: white;
-      font-weight: 600;
-      border: 2px solid #2b6cb0;
-    }
-    
-    .fourth-prize-modal .modal-message {
-      background: #cce1f5;
-      color: #1e4e8c;
-      padding: 15px 20px;
-      border-radius: 60px;
-      border: 2px solid #3182ce;
-    }
-    
-    /* ========== 5th PRIZE MODAL - PURPLE THEME ========== */
-    .fifth-prize-modal {
-      background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
-      border: 8px solid #805ad5;
-      box-shadow: 0 20px 40px rgba(128, 90, 213, 0.4);
-      padding: 35px 20px;
-    }
-    
-    .fifth-prize-modal .modal-icon {
-      font-size: 90px;
-      filter: drop-shadow(0 8px 12px rgba(128, 90, 213, 0.6));
-    }
-    
-    .fifth-prize-modal .modal-title {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: #6b46c1;
-      letter-spacing: 1px;
-    }
-    
-    .fifth-prize-modal .modal-ticket {
-      background: #d6bcfa;
-      color: #553c9a;
-      border: 3px solid #805ad5;
-    }
-    
-    .fifth-prize-modal .modal-prize {
-      color: #6b46c1;
-      font-weight: 800;
-      background: rgba(255, 255, 255, 0.7);
-      display: inline-block;
-      padding: 8px 25px;
-      border-radius: 50px;
-      margin: 10px 0;
-      animation: prizeZoom 1.2s ease-in-out 3;
-    }
-    
-    .fifth-prize-modal .modal-seller {
-      background: #805ad5;
-      color: white;
-      font-weight: 600;
-      border: 2px solid #6b46c1;
-    }
-    
-    .fifth-prize-modal .modal-message {
-      background: #e9d5ff;
-      color: #553c9a;
-      padding: 15px 20px;
-      border-radius: 60px;
-      border: 2px solid #805ad5;
-    }
-    
-    /* ========== CONSOLATION PRIZE MODAL - TEAL THEME ========== */
-    .consolation-modal {
-      background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
-      border: 8px solid #319795;
-      box-shadow: 0 20px 40px rgba(49, 151, 149, 0.4);
-      padding: 35px 20px;
-    }
-    
-    .consolation-modal .modal-icon {
-      font-size: 90px;
-      filter: drop-shadow(0 8px 12px rgba(49, 151, 149, 0.6));
-    }
-    
-    .consolation-modal .modal-title {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: #2c7a7b;
-      letter-spacing: 1px;
-    }
-    
-    .consolation-modal .modal-ticket {
-      background: #b2f5ea;
-      color: #234e52;
-      border: 3px solid #319795;
-    }
-    
-    .consolation-modal .modal-prize {
-      color: #2c7a7b;
-      font-weight: 800;
-      background: rgba(255, 255, 255, 0.7);
-      display: inline-block;
-      padding: 8px 25px;
-      border-radius: 50px;
-      margin: 10px 0;
-      animation: prizeZoom 1.2s ease-in-out 3;
-    }
-    
-    .consolation-modal .modal-seller {
-      background: #319795;
-      color: white;
-      font-weight: 600;
-      border: 2px solid #2c7a7b;
-    }
-    
-    .consolation-modal .modal-message {
-      background: #b2f5ea;
-      color: #234e52;
-      padding: 15px 20px;
-      border-radius: 60px;
-      border: 2px solid #319795;
-    }
-    
-    /* NON-WINNER MODAL - RED */
-    .non-winner-modal {
-      border: 4px solid #dc2626;
-      background: #fee2e2;
-    }
-    
-    .non-winner-modal .modal-title {
-      color: #b91c1c;
-    }
-    
-    .non-winner-modal .modal-message {
-      color: #991b1b;
-      font-weight: 600;
-    }
-    
-    /* Global Zoom Animation for ALL prizes */
-    @keyframes prizeZoom {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-      100% { transform: scale(1); }
-    }
-    
-    .highlight-row {
-      background: #fff9c4 !important;
-      box-shadow: 0 0 15px gold;
-      transition: all 0.3s;
-    }
-    
-    /* ===== Responsive modal title for small screens ===== */
-    @media (max-width: 480px) {
-      .modal-title {
-        font-size: 1.8rem;
-        line-height: 1.3;
-        word-break: break-word;
-        white-space: normal;
-      }
-    }
-    
-    @media (max-width: 360px) {
-      .modal-title {
-        font-size: 1.4rem;
-      }
-    }
-    
-    @media (max-width: 320px) {
-      .modal-title {
-        font-size: 1.2rem;
-      }
-    }
+    /* Simple flipbook viewer — no external libs. A4 portrait preview for web. */
+    :root{--page-width:800px;--page-height:1131px} /* scaled A4 (approx) */
+    body{font-family:system-ui,Segoe UI,Roboto,'Noto Sans Sinhala',sans-serif;background:#f2f4f7;color:#111;margin:0;padding:20px;display:flex;flex-direction:column;align-items:center;gap:18px}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    button,select,input[type=file]{padding:8px 12px;border-radius:6px;border:1px solid #cfcfd4;background:#fff}
+
+    .book-wrap{display:flex;gap:18px;align-items:center}
+    .book{width:calc(var(--page-width)*0.9);max-width:95vw;box-shadow:0 10px 30px rgba(0,0,0,.08);background:#fff;padding:12px;border-radius:6px}
+    .page-view{width:var(--page-width);height:var(--page-height);background:#fff;border:1px solid #e5e7eb;display:flex;flex-direction:column;overflow:hidden}
+
+    .page-inner{flex:1;display:flex;align-items:center;justify-content:center;padding:24px}
+    .page-inner img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+
+    .pager{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-top:1px solid #f0f0f0;background:#fbfbfb}
+    .page-info{font-size:14px;color:#444}
+
+    /* Two-page spread (for double-side visual) */
+    .spread{display:flex;gap:12px}
+    .spread .page-view{width:calc(var(--page-width)/2)}
+
+    .hint{font-size:13px;color:#666}
+    footer{font-size:13px;color:#666;margin-top:6px}
+
+    @media (max-width:900px){:root{--page-width:360px;--page-height:510px}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Header Section -->
-    <div class="header">
-      <div class="header-content">
-        <div class="logo-section">
-          <div class="logo">
-            <img src="images/logo.png" alt="DLB Logo" class="logo-img">
-          </div>
+  <h2>Souvenir Flipbook — Sample (A4 Portrait preview)</h2>
+  <div class="controls">
+    <input id="fileinput" type="file" accept="image/*" multiple>
+    <button id="addPlaceholders">Add 4 placeholder pages</button>
+    <label style="display:flex;align-items:center;gap:6px"><input id="twoPage" type="checkbox"> Double-side spread view</label>
+    <button id="prev">◀ Prev</button>
+    <button id="next">Next ▶</button>
+    <label class="hint">Scale for web preview: A4 ~ 800×1131 px</label>
+  </div>
+
+  <div class="book-wrap">
+    <div class="book">
+      <div id="viewer" class="page-view">
+        <div class="page-inner" id="pageInner">
+          <!-- image injected here -->
         </div>
-        <div class="title-section">
-          <h1>Raffle Draw Results</h1>
-          <h1>2026.03.01</h1>
-          <h2 class="organization">DLB Welfare Society</h2>
-        </div>
-        <div class="ticket-section">
-          <div class="ticket">
-            <img src="images/ticket.png" alt="Raffle Ticket" class="ticket-img">
-          </div>
+        <div class="pager">
+          <div class="page-info" id="pageInfo">Page 0 / 0</div>
+          <div class="hint">Use the file chooser to add images to pages, or click "Add placeholders".</div>
         </div>
       </div>
-    </div>
-
-    <!-- Winners Section Title -->
-    <div class="section-title">
-      <div class="trophy-section">🏆</div>
-      <div class="text-section">
-        <div>ජයග්‍රාහකයින්</div>
-        <div>Winners</div>
-      </div>
-    </div>
-
-    <!-- Winners Table -->
-    <div class="table-container">
-      <table class="winners-table">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Winning Number</th>
-            <th>Prize</th>
-            <th>Seller Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="winner-row" data-ticket="1015211" data-rank="1st">
-            <td class="rank-number"><p>1<sup>st</sup> Prize</p></td>
-            <td><span class="winning-number"><span class="trophy-icon">👑</span>1015211</span></td>
-            <td class="prize first-prize">200,000 LKR</td>
-            <td class="seller-name">Thilina Perera</td>
-          </tr>
-          <tr class="winner-row" data-ticket="1015212" data-rank="2nd">
-            <td class="rank-number"><p>2<sup>nd</sup> Prize</p></td>
-            <td><span class="winning-number">1015212</span></td>
-            <td class="prize">100,000 LKR</td>
-            <td class="seller-name">Thilina Amarasinghe</td>
-          </tr>
-          <tr class="winner-row" data-ticket="1015213" data-rank="3rd">
-            <td class="rank-number"><p>3<sup>rd</sup> Prize</p></td>
-            <td><span class="winning-number">1015213</span></td>
-            <td class="prize">75,000 LKR</td>
-            <td class="seller-name">Thilina Amarasinghe</td>
-          </tr>
-          <tr class="winner-row" data-ticket="1015214" data-rank="4th">
-            <td class="rank-number"><p>4<sup>th</sup> Prize</p></td>
-            <td><span class="winning-number">1015214</span></td>
-            <td class="prize">50,000 LKR</td>
-            <td class="seller-name">Dushani Silva</td>
-          </tr>
-          <tr class="winner-row" data-ticket="1015215" data-rank="5th">
-            <td class="rank-number"><p>5<sup>th</sup> Prize</p></td>
-            <td><span class="winning-number">1015215</span></td>
-            <td class="prize">25,000 LKR</td>
-            <td class="seller-name">Samal Jayasinghe</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Consolation Section Title -->
-    <div class="section-title">
-      <div class="text-section">
-        <div>10,000 බැගින් වූ සැනසිලි ත්‍යාග</div>
-        <div>Consolation prizes of 10,000 each</div>
-      </div>
-    </div>
-
-    <!-- Consolation Table -->
-    <div class="table-container">
-      <table class="sanasili-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Winning Number</th>
-            <th>Seller Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-ticket="1015216"><td class="rank-number">1</td><td><span class="sanasili-number">1015216</span></td><td class="seller-name">Saman Kumara</td></tr>
-          <tr data-ticket="1015217"><td class="rank-number">2</td><td><span class="sanasili-number">1015217</span></td><td class="seller-name">Chandani Jayasekara</td></tr>
-          <tr data-ticket="303030"><td class="rank-number">3</td><td><span class="sanasili-number">303030</span></td><td class="seller-name">Ruwan Perera</td></tr>
-          <tr data-ticket="404040"><td class="rank-number">4</td><td><span class="sanasili-number">404040</span></td><td class="seller-name">Sunil Rathnayake</td></tr>
-          <tr data-ticket="505050"><td class="rank-number">5</td><td><span class="sanasili-number">505050</span></td><td class="seller-name">Suresh Bandara</td></tr>
-          <tr data-ticket="606060"><td class="rank-number">6</td><td><span class="sanasili-number">606060</span></td><td class="seller-name">Kumari Jayawardena</td></tr>
-          <tr data-ticket="707070"><td class="rank-number">7</td><td><span class="sanasili-number">707070</span></td><td class="seller-name">Thusitha Ekanayake</td></tr>
-          <tr data-ticket="808080"><td class="rank-number">8</td><td><span class="sanasili-number">808080</span></td><td class="seller-name">Deepani Silva</td></tr>
-          <tr data-ticket="909090"><td class="rank-number">9</td><td><span class="sanasili-number">909090</span></td><td class="seller-name">Himali Vithanage</td></tr>
-          <tr data-ticket="902233"><td class="rank-number">10</td><td><span class="sanasili-number">902233</span></td><td class="seller-name">Wasantha Kumara</td></tr>
-        </tbody>
-      </table>
     </div>
   </div>
 
-  <!-- MODAL -->
-  <div id="resultModal" class="modal-overlay">
-    <div class="modal-content" id="modalContent">
-      <span class="modal-close" id="closeModal">&times;</span>
-      <div class="modal-icon" id="modalIcon">🎫</div>
-      <div class="modal-title" id="modalTitle">Ticket Check</div>
-      <div class="modal-ticket" id="modalTicketNumber">---</div>
-      <div class="modal-prize" id="modalPrize"></div>
-      <div class="modal-seller" id="modalSeller"></div>
-      <div class="modal-message" id="modalMessage"></div>
-    </div>
-  </div>
+  <footer>Instructions: Upload images (JPG/PNG). Each uploaded file becomes one page (portrait recommended). Use the <strong>Double-side</strong> checkbox to preview as two-page spread.</footer>
 
-  <script>
-    (function() {
-      function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
+<script>
+  // Initial empty pages
+  let pages = []; // each item: {name, url}
+  let currentIndex = 0;
+
+  const fileInput = document.getElementById('fileinput');
+  const pageInner = document.getElementById('pageInner');
+  const pageInfo = document.getElementById('pageInfo');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const addPlaceholdersBtn = document.getElementById('addPlaceholders');
+  const twoPageCheckbox = document.getElementById('twoPage');
+  const viewer = document.getElementById('viewer');
+
+  function render() {
+    pageInner.innerHTML = '';
+    const total = pages.length;
+    if (total === 0) {
+      pageInfo.textContent = 'No pages — upload images.';
+      const t = document.createElement('div');
+      t.style.textAlign = 'center';
+      t.style.color = '#888';
+      t.innerHTML = '<div style="font-size:18px;margin-bottom:6px">Blank Page</div><div style="font-size:13px">Upload images using the chooser (each file = 1 page).</div>';
+      pageInner.appendChild(t);
+      return;
+    }
+
+    // Double-page spread: show currentIndex and currentIndex+1
+    if (twoPageCheckbox.checked) {
+      // create spread container
+      const spread = document.createElement('div');
+      spread.className = 'spread';
+      // left page
+      const left = document.createElement('div');
+      left.className = 'page-view';
+      left.style.width = '50%';
+      left.style.height = '100%';
+      const leftInner = document.createElement('div');
+      leftInner.className = 'page-inner';
+      if (pages[currentIndex]) {
+        const img = document.createElement('img'); img.src = pages[currentIndex].url; img.alt = pages[currentIndex].name; leftInner.appendChild(img);
+      } else {
+        leftInner.innerHTML = '<div style="color:#999">(Blank)</div>';
       }
+      left.appendChild(leftInner);
 
-      function buildWinnersMap() {
-        const winners = new Map();
-        
-        document.querySelectorAll('.winners-table tbody tr').forEach(row => {
-          const ticket = row.getAttribute('data-ticket');
-          const rank = row.getAttribute('data-rank');
-          const prize = row.querySelector('.prize')?.innerText.trim() || '';
-          const seller = row.querySelector('.seller-name')?.innerText.trim() || '';
-          if (ticket) winners.set(ticket, { type: 'winner', rank, prize, seller });
-        });
-
-        document.querySelectorAll('.sanasili-table tbody tr').forEach(row => {
-          const ticket = row.getAttribute('data-ticket');
-          const seller = row.querySelector('.seller-name')?.innerText.trim() || '';
-          if (ticket) winners.set(ticket, { type: 'consolation', rank: 'consolation', prize: '10,000 LKR', seller });
-        });
-
-        return winners;
+      // right page
+      const right = document.createElement('div');
+      right.className = 'page-view';
+      right.style.width = '50%';
+      right.style.height = '100%';
+      const rightInner = document.createElement('div');
+      rightInner.className = 'page-inner';
+      if (pages[currentIndex+1]) {
+        const img2 = document.createElement('img'); img2.src = pages[currentIndex+1].url; img2.alt = pages[currentIndex+1].name; rightInner.appendChild(img2);
+      } else {
+        rightInner.innerHTML = '<div style="color:#999">(Blank)</div>';
       }
+      right.appendChild(rightInner);
 
-      function showResultModal(ticketNumber, winnerInfo) {
-        const modal = document.getElementById('resultModal');
-        const modalContent = document.getElementById('modalContent');
-        const modalIcon = document.getElementById('modalIcon');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalTicket = document.getElementById('modalTicketNumber');
-        const modalPrize = document.getElementById('modalPrize');
-        const modalSeller = document.getElementById('modalSeller');
-        const modalMessage = document.getElementById('modalMessage');
+      spread.appendChild(left);
+      spread.appendChild(right);
+      pageInner.appendChild(spread);
+      pageInfo.textContent = `Spread: ${currentIndex+1} - ${Math.min(currentIndex+2, total)} / ${total}`;
+      return;
+    }
 
-        modalContent.className = 'modal-content';
-        modalTicket.innerText = ticketNumber;
+    // Single page view
+    const item = pages[currentIndex];
+    if (item) {
+      const img = document.createElement('img');
+      img.src = item.url;
+      img.alt = item.name;
+      pageInner.appendChild(img);
+      pageInfo.textContent = `Page ${currentIndex+1} / ${total}`;
+    }
+  }
 
-        if (winnerInfo) {
-          const rank = winnerInfo.rank?.toLowerCase() || '';
-          
-          // Set appropriate class based on rank
-          if (rank.includes('1st')) {
-            modalContent.classList.add('first-prize-modal');
-            modalIcon.innerText = '👑';
-          } else if (rank.includes('2nd')) {
-            modalContent.classList.add('second-prize-modal');
-            modalIcon.innerText = '🥈';
-          } else if (rank.includes('3rd')) {
-            modalContent.classList.add('third-prize-modal');
-            modalIcon.innerText = '🥉';
-          } else if (rank.includes('4th')) {
-            modalContent.classList.add('fourth-prize-modal');
-            modalIcon.innerText = '🏆';
-          } else if (rank.includes('5th')) {
-            modalContent.classList.add('fifth-prize-modal');
-            modalIcon.innerText = '🏆';
-          } else {
-            modalContent.classList.add('consolation-modal');
-            modalIcon.innerText = '🎉';
-          }
-          
-          modalTitle.innerText = 'CONGRATULATIONS!';
-          modalPrize.innerText = winnerInfo.prize;
-          modalSeller.innerText = `Seller: ${winnerInfo.seller}`;
-          modalMessage.innerText = rank.includes('1st') ? 'You won the 1st Prize! Amazing luck!' : 
-                                  rank.includes('2nd') ? 'You won the 2nd Prize! Excellent!' :
-                                  rank.includes('3rd') ? 'You won the 3rd Prize! Great job!' :
-                                  rank.includes('4th') ? 'You won the 4th Prize! Well done!' :
-                                  rank.includes('5th') ? 'You won the 5th Prize! Congratulations!' :
-                                  'You won a consolation prize! Well done!';
+  // handle file input (multiple images)
+  fileInput.addEventListener('change', e => {
+    const files = Array.from(e.target.files);
+    // optionally sort by name
+    files.sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric:true}));
 
-          document.querySelectorAll(`tr[data-ticket="${ticketNumber}"]`).forEach(row => {
-            row.classList.add('highlight-row');
-          });
-        } else {
-          modalContent.classList.add('non-winner-modal');
-          modalIcon.innerText = '😞';
-          modalTitle.innerText = 'SORRY';
-          modalPrize.innerText = '';
-          modalSeller.innerText = '';
-          modalMessage.innerText = 'Not a winner this time. Better luck next time!';
-        }
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        pages.push({name: file.name, url: ev.target.result});
+        // if first file added, set current index to 0
+        if (pages.length === 1) currentIndex = 0;
+        render();
+      };
+      reader.readAsDataURL(file);
+    });
+  });
 
-        modal.style.display = 'flex';
-      }
+  prevBtn.addEventListener('click', ()=>{
+    if (twoPageCheckbox.checked) {
+      currentIndex = Math.max(0, currentIndex - 2);
+    } else {
+      currentIndex = Math.max(0, currentIndex - 1);
+    }
+    render();
+  });
+  nextBtn.addEventListener('click', ()=>{
+    if (twoPageCheckbox.checked) {
+      currentIndex = Math.min(pages.length - 1, currentIndex + 2);
+    } else {
+      currentIndex = Math.min(pages.length - 1, currentIndex + 1);
+    }
+    render();
+  });
 
-      function closeModal() {
-        document.getElementById('resultModal').style.display = 'none';
-        document.querySelectorAll('.highlight-row').forEach(r => r.classList.remove('highlight-row'));
-      }
+  addPlaceholdersBtn.addEventListener('click', ()=>{
+    // add 4 light placeholders
+    for (let i=0;i<4;i++){
+      const svg = `data:image/svg+xml;utf8,` + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='1131'><rect width='100%' height='100%' fill='%23f8f6f0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='36' fill='%23999'>Placeholder Page ${pages.length+1}</text></svg>`);
+      pages.push({name:`placeholder-${pages.length+1}.svg`, url: svg});
+    }
+    render();
+  });
 
-      document.addEventListener('DOMContentLoaded', function() {
-        const ticket = getQueryParam('ticket');
-        if (!ticket) return;
+  twoPageCheckbox.addEventListener('change', ()=>{
+    // if switching to spread mode and currentIndex is odd, make it even (spread start)
+    if (twoPageCheckbox.checked && (currentIndex % 2 === 1)) currentIndex = Math.max(0, currentIndex-1);
+    render();
+  });
 
-        const winnersMap = buildWinnersMap();
-        const info = winnersMap.get(ticket) || null;
+  // allow keyboard navigation
+  window.addEventListener('keydown', (e)=>{
+    if (e.key === 'ArrowRight') nextBtn.click();
+    if (e.key === 'ArrowLeft') prevBtn.click();
+  });
 
-        setTimeout(() => showResultModal(ticket, info), 100);
+  // initial render
+  render();
 
-        document.getElementById('closeModal').addEventListener('click', closeModal);
-        window.addEventListener('click', e => {
-          if (e.target === document.getElementById('resultModal')) closeModal();
-        });
-        document.addEventListener('keydown', e => {
-          if (e.key === 'Escape') closeModal();
-        });
-      });
-    })();
-  </script>
+  // Optional: function to pre-load images from a named list in the HTML for static embedding.
+  // Example: add an array like const initialImages = ['images/01.jpg','images/02.jpg']; and call loadStatic(initialImages)
+  function loadStatic(list){
+    list.forEach(url=>{
+      // small helper to fetch as blob then to dataURL if needed; for simplicity we'll create Image element
+      const img = new Image(); img.crossOrigin = 'anonymous'; img.onload = ()=>{
+        // convert to canvas dataURL to avoid CORS issues when loading local files — skip here, just push url
+        pages.push({name:url, url:url});
+        render();
+      };
+      img.onerror = ()=>{console.warn('Could not load', url);};
+      img.src = url;
+    });
+  }
+
+  // If you want to predefine static image list, uncomment and edit below:
+  // loadStatic(['images/01.jpg','images/02.jpg','images/03.jpg']);
+</script>
 </body>
 </html>
